@@ -1,0 +1,30 @@
+#!/bin/bash
+##########################################################################################
+#                                  ${project.name} MacOS Launcher                                #
+##########################################################################################
+#  Description:                                                                          #
+#    1. Searches for Java                                                                #
+#    2. Launches ${project.name} with the best Java version                              #
+#                                                                                        #
+#  Depends:                                                                              #
+#    java                                                                                #
+#                                                                                        #
+#  Usage:                                                                                #
+#    $ ./${project.name}                                                                 #
+##########################################################################################
+
+# Build absolute path to the jar file, based relative to the location of this script
+installpath=$(echo "$0" | rev | cut -d/ -f4- | rev)
+jarpath=$installpath/${project.filename}.jar
+iconpath=$installpath/${apple.resources}/${apple.icon}
+${apple.jvmver} > /dev/null 2>&1
+fallback=$?
+
+# Fallback on Internet Plug-Ins version if needed
+if [ $fallback -eq 0 ]; then
+	${apple.jvmcmd} java ${launch.opts} -Xdock:name="${project.name}" -Xdock:icon="$iconpath" -jar -Dapple.awt.UIElement="true" "$jarpath"
+else
+	"${apple.jvmfallback}/java" ${launch.opts} -Xdock:name="${project.name}" -Xdock:icon="$iconpath" -jar -Dapple.awt.UIElement="true" "$jarpath"
+fi
+
+exit $?

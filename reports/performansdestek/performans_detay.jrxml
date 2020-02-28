@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="performans_islem" pageWidth="1020" pageHeight="555" orientation="Landscape" columnWidth="1020" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.100000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="personel" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ilktarih" class="java.util.Date"/>
+	<parameter name="sontarih" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select ek.*,em.musteriadi,eko.adi konuadi,
+(case when ek.edestekkayitkonu_id=1 then eg.cozum else
+case when ek.edestekkayitkonu_id=2 then ekk.detay else
+case when ek.edestekkayitkonu_id=3 then et.detay else
+case when ek.edestekkayitkonu_id=4 then CAST(eb.miktar AS char(20)) else
+ei.detay end end end end) detay from edestekkayit ek
+left join edestekkayitkonu eko on eko.id=ek.edestekkayitkonu_id
+left join edestekmusteri em on em.id=ek.edestekmusteri_id
+left join edestekgorusme eg on eg.id = ek.konu_id
+left join edestekbaski eb on eb.id = ek.konu_id
+left join edestektamir et on et.id = ek.konu_id
+left join edestekkurulum ekk on ekk.id = ek.konu_id
+left join edestekislem ei on ei.id = ek.konu_id
+where ek.edestekpersonel_id = $P{personel}
+and ek.tarih between $P{ilktarih} and $P{sontarih}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="edestekmusteri_id" class="java.lang.Integer"/>
+	<field name="konu_id" class="java.lang.Integer"/>
+	<field name="edestekkayitkonu_id" class="java.lang.Integer"/>
+	<field name="yapilanislem" class="java.lang.String"/>
+	<field name="edestekpersonel_id" class="java.lang.Integer"/>
+	<field name="tarih" class="java.sql.Timestamp"/>
+	<field name="sure" class="java.lang.Integer"/>
+	<field name="kritik" class="java.lang.Boolean"/>
+	<field name="durum" class="java.lang.Integer"/>
+	<field name="durum_aciklama" class="java.lang.String"/>
+	<field name="created_at" class="java.sql.Timestamp"/>
+	<field name="updated_at" class="java.sql.Timestamp"/>
+	<field name="musteriadi" class="java.lang.String"/>
+	<field name="konuadi" class="java.lang.String"/>
+	<field name="detay" class="java.lang.String"/>
+	<variable name="toplam" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{sure}]]></variableExpression>
+	</variable>
+	<variable name="var" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{var}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.lang.Integer(1)]]></initialValueExpression>
+	</variable>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="1020" height="20" isPrintWhenDetailOverflows="true"/>
+				<textField>
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="25" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{var}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement stretchType="RelativeToTallestObject" x="25" y="0" width="164" height="20"/>
+					<box leftPadding="10">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{musteriadi}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement stretchType="RelativeToTallestObject" x="278" y="0" width="59" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{sure}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement stretchType="RelativeToTallestObject" x="189" y="0" width="89" height="20"/>
+					<box leftPadding="10">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{tarih}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement stretchType="RelativeToTallestObject" x="534" y="0" width="119" height="20"/>
+					<box leftPadding="10">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{konuadi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="653" y="0" width="367" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="10">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{detay}.replace( "<p>", "" ).replace( "</p>", "" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement stretchType="RelativeToTallestObject" x="337" y="0" width="87" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{durum}==0 ? "Bekliyor" : "Tamamlandı"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="424" y="0" width="110" height="20" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{durum_aciklama}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<summary>
+		<band height="24">
+			<textField>
+				<reportElement x="920" y="0" width="100" height="24"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{toplam}+" Dakika"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="830" y="0" width="90" height="24"/>
+				<box leftPadding="10">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["TOPLAM:"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

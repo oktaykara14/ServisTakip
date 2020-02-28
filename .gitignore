@@ -1,0 +1,7 @@
+.idea
+.svn
+.well-known
+/app/config/database_local.php
+web.config
+/assets/global/plugins/qz-tray/out/
+/vendor/

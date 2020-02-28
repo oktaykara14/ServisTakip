@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="parcalar" pageWidth="555" pageHeight="792" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.7715610000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="secilenler" class="java.lang.String">
+		<defaultValueExpression><![CDATA["(1,2,3,4)"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="adetler" class="java.lang.String[]"/>
+	<parameter name="depokodlari" class="java.lang.String[]"/>
+	<parameter name="muhkodlari" class="java.lang.String[]"/>
+	<queryString>
+		<![CDATA[set NOCOUNT ON
+CREATE TABLE #tmp
+(  tmpid int IDENTITY(1,1),
+   subeurun_id nvarchar(10)
+);
+DECLARE @Value NVARCHAR(MAX) = $P{secilenler}
+DECLARE @XML xml = N'<r><![CDATA[' + REPLACE(@Value, ',', ']]]]><![CDATA[></r><r><![CDATA[') + ']]]]><![CDATA[></r>'
+
+INSERT INTO #tmp ([subeurun_id])
+SELECT RTRIM(LTRIM(T.c.value('.', 'NVARCHAR(128)')))
+FROM @xml.nodes('//r') T(c)
+
+SELECT a.id,a.urunadi,a.kodu
+FROM ( select b.*,ROW_NUMBER() OVER (ORDER BY b.kodu) as row FROM (
+select su.urunadi,su.id,ns.kodu
+from #tmp t
+left join dbo.subeurun su on su.id=t.subeurun_id
+left join dbo.netsisstokkod ns on ns.id=su.netsisstokkod_id
+) b
+) a where a.row > 0 and a.row <=4]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="urunadi" class="java.lang.String"/>
+	<field name="kodu" class="java.lang.String"/>
+	<variable name="var" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{var}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[Integer.valueOf(0)]]></initialValueExpression>
+	</variable>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="15" y="0" width="80" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Calibri" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{kodu}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="111" y="0" width="226" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Calibri" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{urunadi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="337" y="0" width="58" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Calibri" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{adetler}[$V{var}-1]]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="408" y="0" width="67" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Calibri" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{depokodlari}[$V{var}-1]]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="485" y="0" width="70" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Calibri" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{muhkodlari}[$V{var}-1]]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

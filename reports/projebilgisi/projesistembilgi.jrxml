@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projesistembilgi" pageWidth="223" pageHeight="88" columnWidth="223" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="3.4522712143931047"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\projebilgisi\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MUSTERIID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[declare @list nvarchar(MAX) = (select sb.programlar  from dbo.edestekmusteri e
+left join dbo.edesteksistembilgi sb on e.edesteksistembilgi_id=sb.id where e.id=$P{MUSTERIID})
+set @list = ','+@list+','
+select 	sb.*,
+sp.diger,sp.edestekprogram_id,
+ep.adi programadi,
+eef.firma,
+eep.program,
+eet.tipi,
+eev.versiyon
+ from dbo.edestekmusteri e
+left join dbo.edesteksistembilgi sb on e.edesteksistembilgi_id=sb.id
+left join dbo.edesteksistemprogram sp on charindex(','+CAST(sp.id as nvarchar(20))+',',@list) >0
+left join dbo.edestekprogram ep on sp.edestekprogram_id=ep.id
+left join dbo.edestekentegrasyonfirma eef on sp.edestekentegrasyonfirma_id=eef.id
+left join dbo.edestekentegrasyontip eet on sp.edestekentegrasyontip_id=eet.id
+left join dbo.edestekentegrasyonprogram eep on sp.edestekentegrasyonprogram_id=eep.id
+left join dbo.edestekentegrasyonversiyon eev on sp.edestekentegrasyonversiyon_id=eev.id
+where e.id=$P{MUSTERIID}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="netsiscari_id" class="java.lang.Integer"/>
+	<field name="cariadi" class="java.lang.String"/>
+	<field name="plasiyer_id" class="java.lang.Integer"/>
+	<field name="urunler" class="java.lang.String"/>
+	<field name="programlar" class="java.lang.String"/>
+	<field name="veritabanlari" class="java.lang.String"/>
+	<field name="diger" class="java.lang.String"/>
+	<field name="edestekprogram_id" class="java.lang.Integer"/>
+	<field name="programadi" class="java.lang.String"/>
+	<field name="firma" class="java.lang.String"/>
+	<field name="program" class="java.lang.String"/>
+	<field name="tipi" class="java.lang.String"/>
+	<field name="versiyon" class="java.lang.String"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="223" height="20"/>
+				<textField pattern="">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="223" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{programadi}==null ? "" : $F{programadi}+"-"+
+($F{edestekprogram_id}==4 ?
+    $F{firma}+"-"+$F{program}+"-"+$F{tipi}+"-"+$F{versiyon}+($F{diger}==null ? "" : "-"+$F{diger}) :
+    ($F{diger}==null ? "" : $F{diger}))]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

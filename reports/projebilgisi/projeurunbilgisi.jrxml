@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projeurunbilgisi" pageWidth="498" pageHeight="300" columnWidth="498" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="2.143588810000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\projebilgisi\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MUSTERIID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[declare @list nvarchar(MAX) = (select sb.urunler  from dbo.edestekmusteri e
+left join dbo.edesteksistembilgi sb on e.edesteksistembilgi_id=sb.id where e.id=$P{MUSTERIID})
+set @list = ','+@list+','
+select 	sb.*,
+su.adi urunadi,su.adet,su.issue,su.detay,
+eu.adi uruncesidi
+ from dbo.edestekmusteri e
+left join dbo.edesteksistembilgi sb on e.edesteksistembilgi_id=sb.id
+left join dbo.edesteksistemurun su on charindex(','+CAST(su.id as nvarchar(20))+',',@list) >0
+left join dbo.edestekurun eu on su.edestekurun_id=eu.id
+where e.id=$P{MUSTERIID}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="netsiscari_id" class="java.lang.Integer"/>
+	<field name="cariadi" class="java.lang.String"/>
+	<field name="plasiyer_id" class="java.lang.Integer"/>
+	<field name="urunler" class="java.lang.String"/>
+	<field name="programlar" class="java.lang.String"/>
+	<field name="veritabanlari" class="java.lang.String"/>
+	<field name="urunadi" class="java.lang.String"/>
+	<field name="adet" class="java.lang.String"/>
+	<field name="issue" class="java.lang.String"/>
+	<field name="detay" class="java.lang.String"/>
+	<field name="uruncesidi" class="java.lang.String"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="498" height="20" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textField pattern="">
+					<reportElement x="0" y="0" width="189" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($F{uruncesidi}==null ? "" : $F{uruncesidi} )+($F{urunadi}!=null ? "("+$F{urunadi}+")" : "")]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement x="189" y="0" width="82" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{adet}==null ? "" : $F{adet}+" Tane"]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement x="271" y="0" width="222" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($F{issue}==null ? "" : $F{issue})+" "+($F{detay}==null ? "" : $F{detay})]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

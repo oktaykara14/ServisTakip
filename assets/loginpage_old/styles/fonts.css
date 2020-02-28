@@ -1,0 +1,83 @@
+/*-------------------------------------------------------------------------------------*/
+/*	FONTS
+/*-------------------------------------------------------------------------------------*/
+
+/* ----- Open Sans Condensed ----- */
+
+@font-face {
+    font-family: 'Open Sans Condensed Light';
+    src: url('../fonts/Open_Sans_Condensed/opensans-condlight.eot');
+    src: url('../fonts/Open_Sans_Condensed/opensans-condlight.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Open_Sans_Condensed/opensans-condlight.svg#Open Sans Condensed') format('svg'),
+         url('../fonts/Open_Sans_Condensed/opensans-condlight.woff') format('woff'),
+         url('../fonts/Open_Sans_Condensed/opensans-condlight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans Condensed Bold';
+    src: url('../fonts/Open_Sans_Condensed/opensans-condbold.eot');
+    src: url('../fonts/Open_Sans_Condensed/opensans-condbold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Open_Sans_Condensed/opensans-condbold.svg#Open Sans Condensed') format('svg'),
+         url('../fonts/Open_Sans_Condensed/opensans-condbold.woff') format('woff'),
+         url('../fonts/Open_Sans_Condensed/opensans-condbold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+
+/* ----- Oswald ----- */
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('../fonts/Oswald/oswald-regular.eot');
+    src: url('../fonts/Oswald/oswald-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Oswald/oswald-regular.svg#Oswald') format('svg'),
+         url('../fonts/Oswald/oswald-regular.woff') format('woff'),
+         url('../fonts/Oswald/oswald-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+
+/* ----- TSIcons ----- */
+
+@font-face {
+    font-family: 'TSIcons';
+    src: url('../fonts/TSIcons/TSIcons.eot');
+    src: url('../fonts/TSIcons/TSIcons.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/TSIcons/TSIcons.svg#TSIcons') format('svg'),
+         url('../fonts/TSIcons/TSIcons.woff') format('woff'),
+         url('../fonts/TSIcons/TSIcons.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+
+/* ----- Open Sans ----- */
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/Open_Sans/opensans-regular.eot');
+    src: url('../fonts/Open_Sans/opensans-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Open_Sans/opensans-regular.svg#Open Sans') format('svg'),
+         url('../fonts/Open_Sans/opensans-regular.woff') format('woff'),
+         url('../fonts/Open_Sans/opensans-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans Semibold';
+    src: url('../fonts/Open_Sans/opensans-semibold.eot');
+    src: url('../fonts/Open_Sans/opensans-semibold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Open_Sans/opensans-semibold.svg#Open Sans Semibold') format('svg'),
+         url('../fonts/Open_Sans/opensans-semibold.woff') format('woff'),
+         url('../fonts/Open_Sans/opensans-semibold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

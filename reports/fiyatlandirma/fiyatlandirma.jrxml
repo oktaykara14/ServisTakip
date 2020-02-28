@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fiyatlandırma" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.331000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\fiyatlandirma\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select u.*,
+ur.yeradi,
+k.adi_soyadi,k.email,k.telefon,k.grup_id,
+g.grupadi,
+p.yazi,p.birimi,
+p2.yazi2,p2.birimi2,
+d.kurfiyati
+from dbo.ucretlendirilen u
+left join dbo.uretimyer ur on u.uretimyer_id=ur.id
+left join dbo.netsiscari n on u.netsiscari_id=n.id
+left join dbo.kullanici k on u.kullanici_id=k.id
+left join dbo.grup g on k.grup_id=g.id
+left join dbo.parabirimi p on u.parabirimi_id=p.id
+left join dbo.parabirimi2 p2 on u.parabirimi2_id=p2.id
+left join dbo.dovizkuru d on u.parabirimi_id=d.parabirimi_id and u.kurtarihi=d.tarih
+where u.id=$P{id}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="servis_id" class="java.lang.Integer"/>
+	<field name="uretimyer_id" class="java.lang.Integer"/>
+	<field name="netsiscari_id" class="java.lang.Integer"/>
+	<field name="garanti" class="java.lang.Boolean"/>
+	<field name="secilenler" class="java.lang.String"/>
+	<field name="sayacsayisi" class="java.lang.Integer"/>
+	<field name="durum" class="java.lang.Integer"/>
+	<field name="fiyat" class="java.math.BigDecimal"/>
+	<field name="fiyat2" class="java.math.BigDecimal"/>
+	<field name="parabirimi_id" class="java.lang.Integer"/>
+	<field name="parabirimi2_id" class="java.lang.Integer"/>
+	<field name="servisdurum" class="java.lang.Integer"/>
+	<field name="kullanici_id" class="java.lang.Integer"/>
+	<field name="yetkili_id" class="java.lang.Integer"/>
+	<field name="kayittarihi" class="java.sql.Timestamp"/>
+	<field name="kurtarihi" class="java.sql.Timestamp"/>
+	<field name="onaytipi" class="java.lang.Integer"/>
+	<field name="mail" class="java.lang.Integer"/>
+	<field name="gonderimtarihi" class="java.sql.Timestamp"/>
+	<field name="onaytarihi" class="java.sql.Timestamp"/>
+	<field name="reddetmetarihi" class="java.sql.Timestamp"/>
+	<field name="musterinotu" class="java.lang.String"/>
+	<field name="reddedilenler" class="java.lang.String"/>
+	<field name="tekrarkayittarihi" class="java.sql.Timestamp"/>
+	<field name="gerigonderimtarihi" class="java.sql.Timestamp"/>
+	<field name="garantigonderimtarihi" class="java.sql.Timestamp"/>
+	<field name="dosyalar" class="java.lang.String"/>
+	<field name="durumtarihi" class="java.sql.Timestamp"/>
+	<field name="gdurum" class="java.lang.String"/>
+	<field name="greddurum" class="java.lang.String"/>
+	<field name="gabonedurum" class="java.lang.String"/>
+	<field name="gdurumtarihi" class="java.lang.String"/>
+	<field name="gmail" class="java.lang.String"/>
+	<field name="yeradi" class="java.lang.String"/>
+	<field name="adi_soyadi" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="telefon" class="java.lang.String"/>
+	<field name="grup_id" class="java.lang.Integer"/>
+	<field name="grupadi" class="java.lang.String"/>
+	<field name="yazi" class="java.lang.String"/>
+	<field name="birimi" class="java.lang.String"/>
+	<field name="yazi2" class="java.lang.String"/>
+	<field name="birimi2" class="java.lang.String"/>
+	<field name="kurfiyati" class="java.math.BigDecimal"/>
+	<title>
+		<band height="74" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="54"/>
+				<image scaleImage="RetainShape" vAlign="Top">
+					<reportElement x="426" y="0" width="110" height="36"/>
+					<box topPadding="10"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/images/logo/logo-default.png"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="426" y="36" width="44" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["TARİH:"]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd.MM.yyyy">
+					<reportElement x="470" y="36" width="73" height="18"/>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{kayittarihi}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="1" y="54" width="555" height="20"/>
+				<textField>
+					<reportElement x="0" y="0" width="553" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{yeradi}+" Servis Fiyatlandırma Detayları"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="554" height="24"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<subreport>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="554" height="24"/>
+					<subreportParameter name="secilenler">
+						<subreportParameterExpression><![CDATA["("+$F{secilenler}+")"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "fiyatlar.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+	</detail>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="0" width="297" height="18" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FF0000">
+					<printWhenExpression><![CDATA[$F{parabirimi_id}!=1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="10" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Faturanın kesileceği tarihteki kur fiyatı dikkate alınacaktır."]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="0" width="127" height="18" isRemoveLineWhenBlank="true" forecolor="#FF0000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["GENEL TOPLAM:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="0" width="147" height="18" isRemoveLineWhenBlank="true" forecolor="#FF0000"/>
+				<box rightPadding="10">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fiyat2}.compareTo(new BigDecimal(0))==0 ? $F{fiyat}+" "+$F{birimi} :
+$F{fiyat}.compareTo(new BigDecimal(0))==0 ? $F{fiyat2}+" "+$F{birimi2} :
+    $F{fiyat}+" "+$F{birimi}+" + "+$F{fiyat2}+" "+$F{birimi2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+	<noData>
+		<band height="1">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="1"/>
+				<image scaleImage="RealHeight" hAlign="Center">
+					<reportElement x="0" y="0" width="555" height="1"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/hata.jpeg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

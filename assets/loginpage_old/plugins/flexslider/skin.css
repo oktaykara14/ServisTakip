@@ -1,0 +1,198 @@
+.flexslider{
+position: relative;
+margin: 20px 0;
+}
+
+.flexslider:first-child{
+margin-top: 0;
+}
+
+.flexslider:last-child{
+margin-bottom: 0;
+}
+
+.flexslider:before ,
+.flexslider:after{ /* clear floats manually */
+content: "";
+display: table;
+clear: both;
+}
+
+.flexslider .controls{
+display: block;
+position:absolute;
+right: 0;
+top: 50%;
+z-index: 9;
+overflow: hidden;
+height: 40px;
+margin-top: -20px;
+}
+
+.flexslider .controls.left-nav{
+right: auto;
+left: 0;
+}
+
+/* direction nav
+/*-----------------------------*/
+
+.flexslider .controls .flex-control-nav ,
+.flexslider .controls a.next ,
+.flexslider .controls a.prev{
+float: left;
+position: relative;
+-moz-user-select: none;
+-webkit-user-select: none;
+user-select: none;
+}
+
+.flexslider .controls.right-nav .flex-control-nav ,
+.flexslider .controls.right-nav a.next ,
+.flexslider .controls.right-nav a.prev{
+float: right;
+}
+
+.flexslider .controls.right-nav a.next{
+margin: 0 !important;
+}
+
+.flexslider .controls a.next ,
+.flexslider .controls a.prev{
+display: block;
+width: 30px;
+height: 40px;
+text-indent: -9999px;
+cursor: pointer;
+background: #111;
+}
+
+.flexslider .controls a.next:before ,
+.flexslider .controls a.prev:before{
+position: absolute;
+top: 0;
+left: 0;
+width: 30px;
+font: normal normal 18px/40px 'TSIcons';
+text-align: center;
+text-indent: 0;
+color: #fff;
+}
+
+.flexslider .controls a.next:before{
+content: '\e072'; /* right */
+}
+
+.flexslider .controls a.prev:before{
+content: '\e071'; /* left */
+}
+
+.flexslider .controls a.next:hover ,
+.flexslider .controls a.prev:hover{
+background-color: #5bc;
+}
+
+
+.flexslider .controls.right-nav a.next ,
+.flexslider .controls.left-nav a.prev{
+position: relative;
+z-index: 10;
+}
+
+.flexslider.has-controls .controls.right-nav:hover a.next ,
+.flexslider.has-controls .controls.left-nav:hover a.prev{
+-moz-border-radius: 0;
+-webkit-border-radius: 0;
+border-radius: 0;
+}
+
+/* control nav
+/*-----------------------------*/
+
+.flexslider .flex-control-nav{
+visibility: hidden; /* fix for the controls glitch */
+}
+
+.flexslider > .flex-control-nav ,
+.flexslider .controls .flex-control-nav{
+display: inline-block;
+overflow: hidden;
+height: 40px;
+padding: 0 10px;
+background: #111;
+}
+
+.flexslider > .flex-control-nav{
+position: absolute;
+bottom: 10px;
+right: 10px;
+height: 30px;
+}
+
+.flexslider > .flex-control-nav li ,
+.flexslider .controls .flex-control-nav li{
+display: block;
+float: left;
+margin: 0 2px;
+margin-top: 16px;
+width: 8px;
+height: 8px;
+}
+
+.flexslider > .flex-control-nav li{
+margin-top: 11px;
+}
+
+.flexslider > .flex-control-nav li a ,
+.flexslider .controls .flex-control-nav li a{
+display: block;
+width: 8px;
+height: 8px;
+cursor: pointer;
+text-indent: -9999px;
+background: #999;
+-moz-border-radius: 99px;
+-webkit-border-radius: 99px;
+border-radius: 99px;
+}
+
+.flexslider > .flex-control-nav a:hover ,
+.flexslider .controls .flex-control-nav a:hover{
+background: #fff;
+}
+
+.flexslider > .flex-control-nav a.flex-active ,
+.flexslider .controls .flex-control-nav a.flex-active{
+background: #fff;
+}
+
+.flexslider .slides li{
+position: relative;
+}
+
+.flexslider .slides .flex-caption{
+position: absolute;
+left: 10px;
+bottom: 10px;
+margin: 0;
+padding: 10px;
+max-width: 60%;
+font: normal normal 1em/1.1em 'Open Sans', Arial, san-serif;
+color: #fff;
+background: #111;
+}
+
+.flexslider .slides .flex-caption h1,
+.flexslider .slides .flex-caption h2,
+.flexslider .slides .flex-caption h3,
+.flexslider .slides .flex-caption h4,
+.flexslider .slides .flex-caption h5,
+.flexslider .slides .flex-caption h6{
+margin-top: 0;
+color: #fff;
+}
+
+.flexslider .slides .flex-caption p{
+margin: 0;
+color: #ccc;
+}

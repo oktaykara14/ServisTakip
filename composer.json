@@ -1,0 +1,68 @@
+{
+	"name": "laravel/laravel",
+	"description": "The Laravel Framework.",
+	"keywords": ["framework", "laravel"],
+	"license": "MIT",
+	"type": "project",
+	"require": {
+		"laravel/framework": "4.2.22",
+        "barryvdh/laravel-debugbar" : "~1.8",
+        "intervention/image" : "2.*",
+        "barryvdh/laravel-ide-helper" : "~1.11",
+        "barryvdh/laravel-dompdf": "0.4.*",
+        "barryvdh/laravel-snappy": "0.1.*",
+        "maatwebsite/excel": "1.3.*",
+        "h4cc/wkhtmltopdf-amd64":"0.12.3",
+        "h4cc/wkhtmltopdf-i386":"0.12.*",
+		"knplabs/knp-snappy": "^0.4.3",
+        "yajra/laravel-datatables-oracle":"~3.0",
+        "mews/captcha": "1.0.*",
+        "cossou/jasperphp":"2.3.0",
+        "cmgmyr/messenger": "~1.0",
+		"yajra/laravel-oci8":"*",
+        "cboden/ratchet"             : "0.3.*",
+		"brainboxlabs/brain-socket"  : "dev-master",
+      	"ext-pdo": "*",
+        "ext-json": "*",
+		"tomgrohl/laravel4-php71-encrypter": "^1.1",
+		"pusher/pusher-php-server": "^3.4",
+		"jenssegers/agent": "^2.6",
+      	"ext-curl": "*",
+		"mtownsend/xml-to-array": "^1.0"
+    },
+    "repositories": [
+      {
+        "type": "vcs",
+        "url": "https://github.com/mauris/captcha"
+      }
+    ],
+	"autoload": {
+		"classmap": [
+			"app/commands",
+			"app/controllers",
+			"app/models",
+            "app/traits",
+			"app/database/migrations",
+			"app/database/seeds",
+			"app/tests/TestCase.php"
+		]
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-update-cmd": [
+			"php artisan clear-compiled",
+            "php artisan ide-helper:generate",
+			"php artisan optimize"
+		],
+		"post-create-project-cmd": [
+			"php artisan key:generate"
+		]
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"minimum-stability": "stable"
+}

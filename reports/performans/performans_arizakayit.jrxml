@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="performans_arizakayit" pageWidth="482" pageHeight="842" columnWidth="482" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.9487171000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="kullanici" class="java.lang.Integer"/>
+	<parameter name="ilktarih" class="java.util.Date"/>
+	<parameter name="sontarih" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select 	count(a.id) adet,
+	sa.id,
+	sa.sayacadi
+ from dbo.arizakayit a
+inner join dbo.sayacgelen sg on sg.id=a.sayacgelen_id
+inner join dbo.sayacadi sa on sa.id=sg.sayacadi_id
+ where a.arizakayit_kullanici_id=$P{kullanici} and
+a.arizakayittarihi between $P{ilktarih} and $P{sontarih}
+group by sa.id,sa.sayacadi]]>
+	</queryString>
+	<field name="adet" class="java.lang.Integer"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="sayacadi" class="java.lang.String"/>
+	<variable name="toplam" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{adet}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="482" height="24"/>
+				<textField>
+					<reportElement x="0" y="0" width="47" height="24"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{id}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="47" y="0" width="335" height="24"/>
+					<box leftPadding="10">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sayacadi}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="382" y="0" width="100" height="24"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{adet}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<summary>
+		<band height="25">
+			<textField>
+				<reportElement x="382" y="0" width="100" height="24"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{toplam}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="0" width="90" height="24"/>
+				<box leftPadding="10">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["TOPLAM:"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

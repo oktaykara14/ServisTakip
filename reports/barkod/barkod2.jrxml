@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="barkod" pageWidth="141" pageHeight="56" whenNoDataType="NoDataSection" columnWidth="141" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="5.187484920200005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="secilenler" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\barkod\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from dbo.uretimurun u
+where u.id IN $P!{secilenler}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="barkod" class="java.lang.String"/>
+	<field name="urunadi" class="java.lang.String"/>
+	<field name="netsisstokkod_id" class="java.lang.Integer"/>
+	<field name="netsiscari_id" class="java.lang.Integer"/>
+	<field name="uretimuretici_id" class="java.lang.Integer"/>
+	<field name="uretimtarihi" class="java.sql.Date"/>
+	<field name="adet" class="java.lang.Integer"/>
+	<field name="kullanilan" class="java.lang.Integer"/>
+	<field name="depotarihi" class="java.sql.Timestamp"/>
+	<field name="db_name" class="java.lang.String"/>
+	<field name="faturano" class="java.lang.String"/>
+	<field name="inckeyno" class="java.lang.Integer"/>
+	<field name="kullanici_id" class="java.lang.Integer"/>
+	<field name="eklenmetarihi" class="java.sql.Timestamp"/>
+	<field name="guncellenmetarihi" class="java.sql.Timestamp"/>
+	<field name="gdepotarihi" class="java.lang.String"/>
+	<field name="geklenmetarihi" class="java.lang.String"/>
+	<field name="nurunadi" class="java.lang.String"/>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="141" height="40"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<componentElement>
+					<reportElement x="5" y="5" width="136" height="35"/>
+					<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="true" checksumRequired="false" barHeight="80">
+						<jr:codeExpression><![CDATA[$F{barkod}]]></jr:codeExpression>
+					</jr:barbecue>
+				</componentElement>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

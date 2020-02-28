@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="depolararasiirsaliye" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.464100000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="448"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\depolararasiirsaliye\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select d.*,
+n.cariadi,
+a.cariadi aktarilancari,a.adres aktarilanadres,a.il aktarilanil,a.ilce aktarilanilce
+from dbo.depolararasi d
+left join dbo.netsiscari n on d.netsiscari_id=n.id
+left join dbo.netsisdepolar nd on  nd.kodu=d.aktarilandepo
+left join dbo.netsiscari a on a.id=nd.netsiscari_id
+where d.id=$P{id}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="servis_id" class="java.lang.Integer"/>
+	<field name="netsiscari_id" class="java.lang.Integer"/>
+	<field name="secilenler" class="java.lang.String"/>
+	<field name="sayacsayisi" class="java.lang.Integer"/>
+	<field name="depodurum" class="java.lang.Integer"/>
+	<field name="tipi" class="java.lang.Integer"/>
+	<field name="kullanici_id" class="java.lang.Integer"/>
+	<field name="teslimtarihi" class="java.sql.Timestamp"/>
+	<field name="db_name" class="java.lang.String"/>
+	<field name="faturano" class="java.lang.String"/>
+	<field name="faturaadres" class="java.lang.String"/>
+	<field name="carikod" class="java.lang.String"/>
+	<field name="ozelkod" class="java.lang.String"/>
+	<field name="plasiyerkod" class="java.lang.String"/>
+	<field name="teslimadres" class="java.lang.String"/>
+	<field name="depokodu" class="java.lang.String"/>
+	<field name="netsiskullanici" class="java.lang.String"/>
+	<field name="aktarilandepo" class="java.lang.String"/>
+	<field name="gdepodurum" class="java.lang.String"/>
+	<field name="gtipi" class="java.lang.String"/>
+	<field name="gteslimtarihi" class="java.lang.String"/>
+	<field name="cariadi" class="java.lang.String"/>
+	<field name="aktarilancari" class="java.lang.String"/>
+	<field name="aktarilanadres" class="java.lang.String"/>
+	<field name="aktarilanil" class="java.lang.String"/>
+	<field name="aktarilanilce" class="java.lang.String"/>
+	<pageHeader>
+		<band height="302" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="302"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="92" y="135" width="393" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{aktarilancari}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="59" y="160" width="247" height="60" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{aktarilanadres}+' '+$F{aktarilanilce}+' '+$F{aktarilanil}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="383" y="160" width="118" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{teslimtarihi}!=null ? $F{teslimtarihi} : new Date()]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="383" y="205" width="118" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{teslimtarihi}!=null ? $F{teslimtarihi} : new Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="180" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="180"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<subreport>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="555" height="180"/>
+					<subreportParameter name="secilenler">
+						<subreportParameterExpression><![CDATA["("+$F{secilenler}+")"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "kalemler.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="320" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="320"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="22" y="0" width="336" height="20" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle" lineSpacing="1_1_2">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["DEPOLARARASI TRANSFERDİR. FATURA EDİLMEYECEKTİR."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="22" y="20" width="336" height="20" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle" lineSpacing="1_1_2">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["SAYAÇ LİSTESİ EKTEDİR."]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<noData>
+		<band height="1">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="1"/>
+				<image scaleImage="RealHeight" hAlign="Center">
+					<reportElement x="0" y="0" width="555" height="1"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/hata.jpeg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

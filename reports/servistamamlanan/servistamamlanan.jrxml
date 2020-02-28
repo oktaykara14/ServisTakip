@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sayacbilgi" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.text.truncate.at.char" value="true"/>
+	<property name="ireport.zoom" value="1.6105100000000019"/>
+	<property name="ireport.x" value="137"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="subekodu" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="kayittipi" class="java.lang.Integer"/>
+	<parameter name="tarihcheck" class="java.lang.String"/>
+	<parameter name="ilktarih" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sontarih" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nilktarih" class="java.lang.String"/>
+	<parameter name="nsontarih" class="java.lang.String"/>
+	<parameter name="sericheck" class="java.lang.String"/>
+	<parameter name="serino1" class="java.lang.String"/>
+	<parameter name="serino2" class="java.lang.String"/>
+	<parameter name="query" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[(new Boolean($P{sericheck}.equals("1"))) ? ((new Boolean($P{tarihcheck}.equals("1"))) ? ($P{kayittipi}==-1 ?
+"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,ab.aboneno,ab.adisoyadi badisoyadi,sa.sayactur_id from dbo.serviskayit m "+
+"left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id "+
+"left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id "+
+"left join dbo.abonebilgi ab on ab.serino=sa.serino where m.durum=1 and m.servissayaci=1 and m.tipi<>2 and s.subekodu="+$P{subekodu}+" and m.deleted_at is null "+
+"and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") and m.kapanmatarihi between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by kapanmatarihi asc"
+:
+"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,ab.aboneno,ab.adisoyadi badisoyadi,sa.sayactur_id from dbo.serviskayit m "+
+"left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id "+
+"left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id "+
+"left join dbo.abonebilgi ab on ab.serino=sa.serino where m.durum=1 and m.servissayaci=1 and m.tipi="+$P{kayittipi}+" and s.subekodu="+$P{subekodu}+" and m.deleted_at is null "+
+"and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") and m.kapanmatarihi between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by kapanmatarihi asc"
+)
+:($P{kayittipi}==-1 ?
+"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,ab.aboneno,ab.adisoyadi badisoyadi,sa.sayactur_id from dbo.serviskayit m "+
+"left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id "+
+"left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id "+
+"left join dbo.abonebilgi ab on ab.serino=sa.serino where m.durum=1 and m.servissayaci=1 and m.tipi<>2 and s.subekodu="+$P{subekodu}+" and m.deleted_at is null "+
+"and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") order by kapanmatarihi asc"
+:
+"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,ab.aboneno,ab.adisoyadi badisoyadi,sa.sayactur_id from dbo.serviskayit m "+
+"left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id "+
+"left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id "+
+"left join dbo.abonebilgi ab on ab.serino=sa.serino where m.durum=1 and m.servissayaci=1 and m.tipi="+$P{kayittipi}+" and s.subekodu="+$P{subekodu}+" and m.deleted_at is null "+
+"and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") order by kapanmatarihi asc"
+))
+: ((new Boolean($P{tarihcheck}.equals("1"))) ? ($P{kayittipi}==-1 ?
+"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,ab.aboneno,ab.adisoyadi badisoyadi,sa.sayactur_id from dbo.serviskayit m "+
+"left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id "+
+"left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id "+
+"left join dbo.abonebilgi ab on ab.serino=sa.serino where m.durum=1 and m.servissayaci=1 and m.tipi<>2 and s.subekodu="+$P{subekodu}+" and m.deleted_at is null "+
+"and m.kapanmatarihi between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by kapanmatarihi asc"
+:
+"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,ab.aboneno,ab.adisoyadi badisoyadi,sa.sayactur_id from dbo.serviskayit m "+
+"left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id "+
+"left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id "+
+"left join dbo.abonebilgi ab on ab.serino=sa.serino where m.durum=1 and m.servissayaci=1 and m.tipi="+$P{kayittipi}+" and s.subekodu="+$P{subekodu}+" and m.deleted_at is null "+
+"and m.kapanmatarihi between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by kapanmatarihi asc"
+)
+: ($P{kayittipi}==-1 ?
+   "select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,ab.aboneno,ab.adisoyadi badisoyadi,sa.sayactur_id from dbo.serviskayit m "+
+"left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id "+
+"left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id "+
+"left join dbo.abonebilgi ab on ab.serino=sa.serino where m.durum=1 and m.servissayaci=1 and m.tipi<>2 and s.subekodu="+$P{subekodu}+" and m.deleted_at is null "+
+"order by kapanmatarihi asc"
+:
+"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,ab.aboneno,ab.adisoyadi badisoyadi,sa.sayactur_id from dbo.serviskayit m "+
+"left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id "+
+"left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id "+
+"left join dbo.abonebilgi ab on ab.serino=sa.serino where m.durum=1 and m.servissayaci=1 and m.tipi="+$P{kayittipi}+" and s.subekodu="+$P{subekodu}+" and m.deleted_at is null "+
+"order by kapanmatarihi asc"
+))]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[$P!{query}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="subekodu" class="java.lang.Integer"/>
+	<field name="abonetahsis_id" class="java.lang.Integer"/>
+	<field name="netsiscari_id" class="java.lang.Integer"/>
+	<field name="uretimyer_id" class="java.lang.Integer"/>
+	<field name="durum" class="java.lang.Integer"/>
+	<field name="tipi" class="java.lang.Integer"/>
+	<field name="subepersonel_id" class="java.lang.Integer"/>
+	<field name="acilmatarihi" class="java.sql.Timestamp"/>
+	<field name="kapanmatarihi" class="java.sql.Timestamp"/>
+	<field name="servisnotu" class="java.lang.String"/>
+	<field name="aciklama" class="java.lang.String"/>
+	<field name="sokulmedurumu" class="java.lang.Integer"/>
+	<field name="servissayaci" class="java.lang.Integer"/>
+	<field name="ilkendeks" class="java.lang.Double"/>
+	<field name="sonendeks" class="java.lang.Double"/>
+	<field name="sayacborcu" class="java.lang.Double"/>
+	<field name="depogelen_id" class="java.lang.Integer"/>
+	<field name="kullanici_id" class="java.lang.Integer"/>
+	<field name="created_at" class="java.sql.Timestamp"/>
+	<field name="updated_at" class="java.sql.Timestamp"/>
+	<field name="deleted_at" class="java.sql.Timestamp"/>
+	<field name="gdurum" class="java.lang.String"/>
+	<field name="gtipi" class="java.lang.String"/>
+	<field name="gacilmatarihi" class="java.lang.String"/>
+	<field name="gkapanmatarihi" class="java.lang.String"/>
+	<field name="ndurum" class="java.lang.String"/>
+	<field name="ntipi" class="java.lang.String"/>
+	<field name="adisoyadi" class="java.lang.String"/>
+	<field name="telefon" class="java.lang.String"/>
+	<field name="faturaadresi" class="java.lang.String"/>
+	<field name="adres" class="java.lang.String"/>
+	<field name="serino" class="java.lang.String"/>
+	<field name="adi" class="java.lang.String"/>
+	<field name="aboneno" class="java.lang.String"/>
+	<field name="badisoyadi" class="java.lang.String"/>
+	<field name="sayactur_id" class="java.lang.Integer"/>
+	<variable name="var" class="java.lang.Integer" resetType="Group" resetGroup="kayittipi" calculation="Count">
+		<variableExpression><![CDATA[$V{var}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.lang.Integer(1)]]></initialValueExpression>
+	</variable>
+	<variable name="rowcount" class="java.lang.Integer" resetType="Group" resetGroup="kayittipi" calculation="Count">
+		<variableExpression><![CDATA[$V{kayittipi_COUNT}]]></variableExpression>
+	</variable>
+	<group name="kayittipi" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{tipi}]]></groupExpression>
+		<groupHeader>
+			<band height="20" splitType="Stretch">
+				<frame>
+					<reportElement x="0" y="0" width="832" height="20"/>
+					<textField>
+						<reportElement x="426" y="0" width="70" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["SERİ NO"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="0" y="0" width="22" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["#"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="22" y="0" width="250" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["ABONE ADI SOYADI"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="356" y="0" width="70" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["ABONE NO"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="272" y="0" width="84" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["İŞLEM TARİHİ"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="496" y="0" width="80" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["İLK ENDEKS"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="576" y="0" width="80" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["SON ENDEKS"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="656" y="0" width="90" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["SAYAÇ BORCU"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="746" y="0" width="86" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["TOPLAM FARK"]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="832" height="40"/>
+				<image scaleImage="RetainShape" vAlign="Top">
+					<reportElement x="0" y="0" width="100" height="38"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/manaslogo.png"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="127" y="0" width="644" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["MANAS ENDEKS RAPORU"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="608" y="18" width="44" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["TARİH:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="kayittipi">
+					<reportElement stretchType="RelativeToTallestObject" x="278" y="19" width="239" height="20"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{gtipi}.toUpperCase()+"("+$V{rowcount}+")"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="201" y="18" width="77" height="20"/>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["KAYIT TİPİ :"]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd.MM.yyyy">
+					<reportElement x="652" y="18" width="180" height="20">
+						<printWhenExpression><![CDATA[new Boolean(!$P{tarihcheck}.equals("1"))]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement x="652" y="18" width="180" height="20">
+						<printWhenExpression><![CDATA[new Boolean($P{tarihcheck}.equals("1"))]]></printWhenExpression>
+					</reportElement>
+					<textField pattern="dd.MM.yyyy">
+						<reportElement x="94" y="0" width="86" height="20"/>
+						<box leftPadding="0"/>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.util.Date"><![CDATA[$P{sontarih}]]></textFieldExpression>
+					</textField>
+					<textField pattern="dd.MM.yyyy">
+						<reportElement x="0" y="0" width="79" height="20"/>
+						<box leftPadding="5"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.util.Date"><![CDATA[$P{ilktarih}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="79" y="0" width="15" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["-"]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="832" height="14"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="426" y="0" width="70" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{serino}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="22" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{var}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="22" y="0" width="250" height="14"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{adisoyadi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="356" y="0" width="70" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{aboneno}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement stretchType="RelativeToTallestObject" x="272" y="0" width="84" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{kapanmatarihi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.000">
+					<reportElement stretchType="RelativeToTallestObject" x="496" y="0" width="80" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{ilkendeks}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.000">
+					<reportElement stretchType="RelativeToTallestObject" x="576" y="0" width="80" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{sonendeks}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.000">
+					<reportElement stretchType="RelativeToTallestObject" x="656" y="0" width="90" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{sayacborcu}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.000">
+					<reportElement stretchType="RelativeToTallestObject" x="746" y="0" width="86" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[($F{sonendeks}-$F{ilkendeks})+$F{sayacborcu}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="14" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="832" height="14"/>
+				<textField>
+					<reportElement x="694" y="0" width="98" height="14" forecolor="#FF0000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Sayfa "+$V{PAGE_NUMBER}+" -"]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy HH.mm.ss">
+					<reportElement x="0" y="0" width="100" height="14" forecolor="#FF0000"/>
+					<textElement>
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="792" y="0" width="40" height="14" forecolor="#FF0000"/>
+					<textElement>
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<noData>
+		<band height="1">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="832" height="1"/>
+				<image scaleImage="RealHeight" hAlign="Center">
+					<reportElement x="0" y="0" width="832" height="1"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/hata2.jpeg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

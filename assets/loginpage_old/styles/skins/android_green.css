@@ -1,0 +1,84 @@
+/*-------------------------------------------------------------------------------------*/
+/*	SKIN
+/*
+/* To use this skin file, add the following code to the end of the page head tag:
+/*
+/* 		<link href="styles/skins/android_green.css" rel="stylesheet" />
+/*
+/*-------------------------------------------------------------------------------------*/
+
+.blog .entry.quote-entry .entry-title cite ,
+.blog .entry-meta .entry-cats:hover:before ,
+.blog .entry-meta .entry-comments:hover:before ,
+.blog .entry-meta .entry-permalink:hover:before ,
+.entry-title small ,
+.entry-title a:hover ,
+.entry-meta a:hover ,
+#home-slider .nav-link.next > span > span:before ,
+#home-slider .nav-link.prev > span > span:before ,
+.color ,
+.code ,
+.tabs ul li.active a ,
+blockquote:before ,
+.list li a:hover ,
+.list li small ,
+#page-head h1 small ,
+#main-nav > ul > li > ul li.has-submenu > a:before ,
+a{
+color: #a4c639;
+}
+
+.filterable-nav > ul li.active a ,
+#home-slider .controls a:hover ,
+.pagination ul li.current > * ,
+.tabs ul li.active a:before ,
+.toggle > a:hover ,
+.overlay .icon.content-overlay:hover ,
+.divider.bar:before ,
+a.button.color ,
+button.color ,
+input[type=button].color ,
+input[type=submit].color ,
+input[type=reset].color ,
+a.button:hover ,
+button:hover ,
+input[type=button]:hover ,
+input[type=submit]:hover ,
+input[type=reset]:hover ,
+.widget-title:before ,
+#page-head:before ,
+#page-foot:before ,
+#page:before ,
+#main-nav > ul > li.current > a:before ,
+#main-nav > ul > li:hover > a{
+background: #a4c639;
+}
+
+.widget .flickr-feed .listing li a:hover{
+border-color: #a4c639;
+}
+
+.accordion .toggle a:hover,
+.toggle-group .toggle a:hover{
+border-top-color: #a4c639;
+}
+
+code{
+border-left-color: #a4c639;
+}
+
+#social-media a:hover{
+border-bottom-color: #a4c639;
+}
+
+::selection{
+background:#a4c639;
+}
+
+::-moz-selection{
+background:#a4c639;
+}
+
+::-webkit-selection{
+background:#a4c639;
+}

@@ -1,0 +1,7 @@
+.btn-custom, .btn-custom:active { 
+	behavior: url(assets/css/PIE.htc);
+}
+.btn-custom span.cnumber {
+	left: 0px;
+	margin-left:0px;
+}

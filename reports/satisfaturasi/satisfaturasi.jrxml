@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teslimtutanak" pageWidth="595" pageHeight="792" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.3310000000000062"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\satisfaturasi\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ss.adet,ss.birimfiyat,ss.ucretsiz,ss.aciklama,ss.odemesekli,ss.faturatarihi,ss.secilenler,
+ss.tutar,ss.kdv,ss.toplamtutar,ss.kdvorani,ss.yazitutar,ss.odemeyapan,ss.kayittarihi,
+a.adisoyadi,a.faturaadresi,a.vergidairesi,a.tckimlikno,a.telefon,
+p.birimi,ss.odemetipi
+from dbo.subesayacsatis ss
+left join abone a on ss.abone_id=a.id
+left join parabirimi p on p.id=ss.parabirimi_id
+where ss.id=$P{id}]]>
+	</queryString>
+	<field name="adet" class="java.lang.String"/>
+	<field name="birimfiyat" class="java.lang.String"/>
+	<field name="ucretsiz" class="java.lang.String"/>
+	<field name="aciklama" class="java.lang.String"/>
+	<field name="odemesekli" class="java.lang.String"/>
+	<field name="faturatarihi" class="java.sql.Timestamp"/>
+	<field name="secilenler" class="java.lang.String"/>
+	<field name="tutar" class="java.math.BigDecimal"/>
+	<field name="kdv" class="java.math.BigDecimal"/>
+	<field name="toplamtutar" class="java.math.BigDecimal"/>
+	<field name="kdvorani" class="java.lang.Integer"/>
+	<field name="yazitutar" class="java.lang.String"/>
+	<field name="odemeyapan" class="java.lang.String"/>
+	<field name="kayittarihi" class="java.sql.Timestamp"/>
+	<field name="adisoyadi" class="java.lang.String"/>
+	<field name="faturaadresi" class="java.lang.String"/>
+	<field name="vergidairesi" class="java.lang.String"/>
+	<field name="tckimlikno" class="java.lang.String"/>
+	<field name="telefon" class="java.lang.String"/>
+	<field name="birimi" class="java.lang.String"/>
+	<field name="odemetipi" class="java.lang.Integer"/>
+	<pageHeader>
+		<band height="315" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="315"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="40" y="150" width="267" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DotMatrix" size="8" isBold="false" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{adisoyadi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="40" y="175" width="205" height="60" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{faturaadresi}+"\n"+"ABONE TEL: "+$F{telefon}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="455" y="175" width="94" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{faturatarihi}!=null ? $F{faturatarihi} : new Date()]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="455" y="220" width="94" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{faturatarihi}!=null ? $F{faturatarihi} : new Date()]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="120" y="245" width="176" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{vergidairesi}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="444" y="245" width="111" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{tckimlikno}]]></textFieldExpression>
+				</textField>
+				<textField pattern="HH:mm" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="456" y="198" width="94" height="20"/>
+					<box leftPadding="10"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{kayittarihi}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="80" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="80"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<subreport>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="555" height="80"/>
+					<subreportParameter name="secilenler">
+						<subreportParameterExpression><![CDATA[$F{secilenler}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ucretsizler">
+						<subreportParameterExpression><![CDATA[$F{ucretsiz}.split(",")]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="birimfiyatlar">
+						<subreportParameterExpression><![CDATA[$F{birimfiyat}.split(",")]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="adetler">
+						<subreportParameterExpression><![CDATA[$F{adet}.split(",")]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "kalemler.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="357" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="357"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="341" y="6" width="129" height="24" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[" ARA TOPLAM:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="307" y="30" width="163" height="24" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["K.D.V.(%"+$F{kdvorani}+")TUTARI:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="341" y="54" width="129" height="24" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["GENEL TOPLAM:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement positionType="Float" mode="Opaque" x="470" y="6" width="65" height="24" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tutar}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement positionType="Float" mode="Opaque" x="470" y="30" width="65" height="24" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{kdv}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement positionType="Float" mode="Opaque" x="470" y="54" width="65" height="24" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{toplamtutar}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="535" y="6" width="15" height="24" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5" bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" lineSpacing="Single">
+						<font fontName="Calibri" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{birimi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="534" y="30" width="15" height="24" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5" bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" lineSpacing="Single">
+						<font fontName="Calibri" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{birimi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="534" y="54" width="15" height="24" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5" bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top" lineSpacing="Single">
+						<font fontName="Calibri" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{birimi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Opaque" x="70" y="222" width="343" height="30" isPrintWhenDetailOverflows="true"/>
+					<box bottomPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle" lineSpacing="Single">
+						<font fontName="DotMatrix" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{yazitutar}]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement stretchType="RelativeToTallestObject" x="8" y="80" width="309" height="20" isPrintWhenDetailOverflows="true"/>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="93" height="20" isPrintWhenDetailOverflows="true"/>
+						<box bottomPadding="5">
+							<pen lineWidth="0.0"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Middle" lineSpacing="Double">
+							<font fontName="DotMatrix" size="8" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["SAYAÇ SERİ NO:"]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="93" y="0" width="216" height="20" isPrintWhenDetailOverflows="true"/>
+						<box bottomPadding="5">
+							<pen lineWidth="0.0"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Middle" lineSpacing="Double">
+							<font fontName="DotMatrix" size="8" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{aciklama}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" x="8" y="100" width="309" height="20" isPrintWhenDetailOverflows="true"/>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="93" height="20" isPrintWhenDetailOverflows="true"/>
+						<box bottomPadding="5">
+							<pen lineWidth="0.0"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Middle" lineSpacing="Single">
+							<font fontName="DotMatrix" size="8" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["ÖDEME ŞEKLİ:"]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="93" y="0" width="216" height="20" isPrintWhenDetailOverflows="true"/>
+						<box bottomPadding="5">
+							<pen lineWidth="0.0"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Middle" lineSpacing="Single">
+							<font fontName="DotMatrix" size="8" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{odemetipi}==7 ? "" : $F{odemesekli}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" x="8" y="120" width="309" height="20" isPrintWhenDetailOverflows="true">
+						<printWhenExpression><![CDATA[$F{odemeyapan}!=null]]></printWhenExpression>
+					</reportElement>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="93" height="20" isPrintWhenDetailOverflows="true"/>
+						<box bottomPadding="5">
+							<pen lineWidth="0.0"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Middle" lineSpacing="Single">
+							<font fontName="DotMatrix" size="8" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["ÖDEMEYİ YAPAN:"]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="93" y="0" width="216" height="20" isPrintWhenDetailOverflows="true"/>
+						<box bottomPadding="5">
+							<pen lineWidth="0.0"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Middle" lineSpacing="Single">
+							<font fontName="DotMatrix" size="8" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{odemeyapan}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</pageFooter>
+	<noData>
+		<band height="1">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="1"/>
+				<image scaleImage="RealHeight" hAlign="Center">
+					<reportElement x="0" y="0" width="555" height="1"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/hata.jpeg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="parcalar" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="secilenler" class="java.lang.String">
+		<defaultValueExpression><![CDATA["(1,2,3,4)"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sayi" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select z.sayacadi,z.capadi,z.yeradi,z.serino,z.teslimdurum,z.durum,z.ariza_garanti,z.toplamtutar,z.toplamtutar2,z.birimi,z.birimi2
+FROM (
+    select b.*,ROW_NUMBER() OVER (ORDER BY b.serino) as row FROM (
+	select sa.sayacadi,sc.capadi,u.yeradi,a.serino,a.teslimdurum,af.durum,af.ariza_garanti,
+	af.toplamtutar,af.toplamtutar2,p.birimi,p2.birimi2
+	from sayacgelen a
+	left join dbo.sayacadi sa on a.sayacadi_id=sa.id
+	left join dbo.sayaccap sc on a.sayaccap_id=sc.id
+	left join dbo.uretimyer u on a.uretimyer_id=u.id
+	left join dbo.arizafiyat af on af.sayacgelen_id=a.id
+	left join dbo.parabirimi p on af.parabirimi_id=p.id
+	left join dbo.parabirimi2 p2 on af.parabirimi2_id=p2.id
+	where a.id IN $P!{secilenler}
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+	union all select '','','','z',0,0,1,0,0,'',''
+       )b
+) z where z.row > 0 and z.row <= (($P{sayi}/21)+1)*21]]>
+	</queryString>
+	<field name="sayacadi" class="java.lang.String"/>
+	<field name="capadi" class="java.lang.String"/>
+	<field name="yeradi" class="java.lang.String"/>
+	<field name="serino" class="java.lang.String"/>
+	<field name="teslimdurum" class="java.lang.Integer"/>
+	<field name="durum" class="java.lang.Integer"/>
+	<field name="ariza_garanti" class="java.lang.Integer"/>
+	<field name="toplamtutar" class="java.math.BigDecimal"/>
+	<field name="toplamtutar2" class="java.math.BigDecimal"/>
+	<field name="birimi" class="java.lang.String"/>
+	<field name="birimi2" class="java.lang.String"/>
+	<variable name="var" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{var}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.lang.Integer(1)]]></initialValueExpression>
+	</variable>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="27" isPrintWhenDetailOverflows="true"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="33" y="0" width="208" height="27" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{capadi}!="" ? $F{sayacadi}+" "+$F{capadi} : $F{sayacadi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="33" height="27" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{var}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="241" y="0" width="115" height="27" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{yeradi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="451" y="0" width="104" height="27" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[new java.lang.String($F{serino}).equals("z") ? "" : ($F{teslimdurum}==0 ? "Bekliyor" : (
+     $F{teslimdurum}==1 ?
+     ( $F{ariza_garanti}==1 ? "Garanti İçinde" :
+        ($F{toplamtutar2}.compareTo(new BigDecimal(0))==0 ? $F{toplamtutar}+" "+$F{birimi} :
+            $F{toplamtutar}.compareTo(new BigDecimal(0))==0 ? $F{toplamtutar2}+" "+$F{birimi2} :
+            $F{toplamtutar}+" "+$F{birimi}+" + "+$F{toplamtutar2}+" "+$F{birimi2}))
+     : ($F{teslimdurum}==2 ? "Geri Gönderim"
+     : ($F{teslimdurum}==3 ? "Hurda"
+     : ($F{teslimdurum}==4 ? "Depolararası Sevk"
+     : "Periyodik Bakım"  )  ))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="356" y="0" width="95" height="27" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[new java.lang.String($F{serino}).equals("z") ? "" : $F{serino}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

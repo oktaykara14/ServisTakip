@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="yetklili" pageWidth="364" pageHeight="20" columnWidth="364" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.9487171000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="netsiscariid" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ISNULL((select k.adi_soyadi
+from dbo.kullanici k
+left join dbo.yetkili y on y.kullanici_id=k.id and k.grup_id=19 and k.aktifdurum=1
+where y.netsiscari_id=$P{netsiscariid}),'Yetkili') adi_soyadi
+]]>
+	</queryString>
+	<field name="adi_soyadi" class="java.lang.String"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="364" height="20" isPrintWhenDetailOverflows="true"/>
+				<textField isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="364" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{adi_soyadi}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

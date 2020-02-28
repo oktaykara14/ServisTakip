@@ -1,0 +1,130 @@
+/* 
+    User Style:
+    Change the following styles to modify the appearance of ColorBox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+
+#cboxOverlay{
+background: #000;
+}
+
+#colorbox ,
+#cboxWrapper ,
+#cboxContent{
+overflow: visible;
+}
+
+#cboxContent{
+margin-top: -35px; /* cboxTitle.height/2 */
+}
+
+#colorbox *{
+background: none;
+}
+
+#cboxLoadingGraphic{
+background:url(../../images/loading.gif) no-repeat center center;
+}
+
+#cboxTitle{
+position: fixed;
+left: 0;
+bottom: 0;
+display: block;
+min-height: 30px;
+padding: 20px;
+padding-right: 300px;
+font: normal normal 22px/30px 'Open Sans Condensed Bold', Arial, sans-serif;
+text-transform: uppercase;
+text-align: left;
+color: #fff;
+background: #111;
+}
+
+#cboxTitle a{
+color: #fff;
+}
+
+#cboxTitle a:hover{
+text-decoration: underline;
+}
+
+#cboxTitle small{
+margin-left: 10px;
+font: normal normal 0.85em/1em 'Open Sans Condensed Light', Arial, sans-serif;
+color: #5bc;
+}
+
+#cboxNext ,
+#cboxPrevious ,
+#cboxClose{
+display: block;
+width: 40px;
+height: 40px;
+position: fixed;
+left: auto;
+bottom: 15px;
+background: #333;
+-moz-transition: background 0.15s ease-out;
+-webkit-transition: background 0.15s ease-out;
+-o-transition: background 0.15s ease-out;
+-ms-transition: background 0.15s ease-out;
+transition: background 0.15s ease-out;
+}
+
+#cboxNext:hover ,
+#cboxPrevious:hover ,
+#cboxClose:hover{
+background: #5bc;
+}
+
+#cboxNext{
+right: 61px;
+}
+
+#cboxPrevious{
+right: 102px;
+}
+
+#cboxClose{
+right: 20px;
+}
+
+#cboxNext:before ,
+#cboxPrevious:before ,
+#cboxClose:before{
+display: block;
+position: absolute;
+width: 100%;
+top: 0;
+left: 0;
+font: normal normal 20px/40px 'TSIcons';
+text-align: center;
+text-decoration: none;
+text-indent: 0;
+color: #fff;
+}
+
+#cboxNext:before{
+content: "\e072";
+}
+
+#cboxPrevious:before{
+content: "\e071";
+}
+
+#cboxClose:before{
+content: "\2715";
+}
+
+#cboxCurrent{
+display: block;
+position: fixed;
+bottom: 25px;
+right: 170px;
+left: auto;
+font: normal normal 20px/1em 'Open Sans Condensed Bold', Arial, sans-serif;
+text-transform: uppercase;
+text-align: right;
+color: #999;
+}

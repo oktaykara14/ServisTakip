@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fiyatlar" pageWidth="554" pageHeight="842" columnWidth="554" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.4641000000000015"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="secilenler" class="java.lang.String">
+		<defaultValueExpression><![CDATA["(40,488,489,490)"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\fiyatlandirma\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.*,
+s.servis_id,
+b.sayacadi,
+c.uretimtarihi,
+d.birimi,d.yazi,
+d2.birimi2,d2.yazi2,
+do1.kurfiyati euro,
+do2.kurfiyati dolar,
+do3.kurfiyati sterlin
+from dbo.arizafiyat a
+join dbo.sayacgelen s on a.sayacgelen_id=s.id
+left join dbo.sayacadi b on a.sayacadi_id=b.id
+left join dbo.sayac c on a.sayac_id=c.id
+left join dbo.parabirimi d on a.parabirimi_id=d.id
+left join dbo.parabirimi2 d2 on a.parabirimi2_id=d2.id
+left join dbo.dovizkuru do1 on do1.parabirimi_id=2 and do1.tarih=a.kurtarihi
+left join dbo.dovizkuru do2 on do2.parabirimi_id=2 and do2.tarih=a.kurtarihi
+left join dbo.dovizkuru do3 on do3.parabirimi_id=2 and do3.tarih=a.kurtarihi
+where a.id IN $P!{secilenler}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="ariza_serino" class="java.lang.String"/>
+	<field name="sayac_id" class="java.lang.Integer"/>
+	<field name="sayacadi_id" class="java.lang.Integer"/>
+	<field name="sayaccap_id" class="java.lang.Integer"/>
+	<field name="ariza_garanti" class="java.lang.Boolean"/>
+	<field name="fiyatdurum" class="java.lang.Boolean"/>
+	<field name="uretimyer_id" class="java.lang.Integer"/>
+	<field name="arizakayit_id" class="java.lang.Integer"/>
+	<field name="depogelen_id" class="java.lang.Integer"/>
+	<field name="netsiscari_id" class="java.lang.Integer"/>
+	<field name="sayacgelen_id" class="java.lang.Integer"/>
+	<field name="degisenler" class="java.lang.String"/>
+	<field name="genel" class="java.lang.String"/>
+	<field name="ozel" class="java.lang.String"/>
+	<field name="genelbirim" class="java.lang.String"/>
+	<field name="ozelbirim" class="java.lang.String"/>
+	<field name="ucretsiz" class="java.lang.String"/>
+	<field name="fiyat" class="java.math.BigDecimal"/>
+	<field name="fiyat2" class="java.math.BigDecimal"/>
+	<field name="indirim" class="java.lang.Boolean"/>
+	<field name="indirimorani" class="java.math.BigDecimal"/>
+	<field name="tutar" class="java.math.BigDecimal"/>
+	<field name="tutar2" class="java.math.BigDecimal"/>
+	<field name="kdv" class="java.math.BigDecimal"/>
+	<field name="kdv2" class="java.math.BigDecimal"/>
+	<field name="toplamtutar" class="java.math.BigDecimal"/>
+	<field name="toplamtutar2" class="java.math.BigDecimal"/>
+	<field name="parabirimi_id" class="java.lang.Integer"/>
+	<field name="parabirimi2_id" class="java.lang.Integer"/>
+	<field name="subedurum" class="java.lang.Boolean"/>
+	<field name="durum" class="java.lang.Integer"/>
+	<field name="kullanici_id" class="java.lang.Integer"/>
+	<field name="kayittarihi" class="java.sql.Timestamp"/>
+	<field name="kurtarihi" class="java.sql.Timestamp"/>
+	<field name="tekrarkayittarihi" class="java.sql.Timestamp"/>
+	<field name="gerigonderimtarihi" class="java.sql.Timestamp"/>
+	<field name="ggaranti" class="java.lang.String"/>
+	<field name="servis_id" class="java.lang.Integer"/>
+	<field name="sayacadi" class="java.lang.String"/>
+	<field name="uretimtarihi" class="java.sql.Timestamp"/>
+	<field name="birimi" class="java.lang.String"/>
+	<field name="yazi" class="java.lang.String"/>
+	<field name="birimi2" class="java.lang.String"/>
+	<field name="yazi2" class="java.lang.String"/>
+	<field name="euro" class="java.math.BigDecimal"/>
+	<field name="dolar" class="java.math.BigDecimal"/>
+	<field name="sterlin" class="java.math.BigDecimal"/>
+	<detail>
+		<band height="192" splitType="Prevent">
+			<frame>
+				<reportElement x="0" y="0" width="554" height="192"/>
+				<frame>
+					<reportElement x="0" y="0" width="554" height="16" isPrintWhenDetailOverflows="true"/>
+					<textField isBlankWhenNull="true">
+						<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="53" height="16" isPrintWhenDetailOverflows="true" backcolor="#CCCCCC"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="12" isBold="true"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["#"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="53" y="0" width="102" height="16" isPrintWhenDetailOverflows="true" backcolor="#CCCCCC"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="12" isBold="true"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["Seri No"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="155" y="0" width="266" height="16" isPrintWhenDetailOverflows="true" backcolor="#CCCCCC"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="12" isBold="true"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["Sayaç Tipi"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="421" y="0" width="133" height="16" isPrintWhenDetailOverflows="true" backcolor="#CCCCCC"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="12" isBold="true"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["Üretim Yılı"]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="0" y="16" width="554" height="16" isPrintWhenDetailOverflows="true"/>
+					<textField isBlankWhenNull="true">
+						<reportElement stretchType="RelativeToTallestObject" x="155" y="0" width="266" height="16" isPrintWhenDetailOverflows="true"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{sayacadi}]]></textFieldExpression>
+					</textField>
+					<textField pattern="yyyy" isBlankWhenNull="true">
+						<reportElement stretchType="RelativeToTallestObject" x="421" y="0" width="133" height="16" isPrintWhenDetailOverflows="true"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.util.Date"><![CDATA[$F{uretimtarihi}]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement stretchType="RelativeToTallestObject" x="53" y="0" width="102" height="16" isPrintWhenDetailOverflows="true"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{ariza_serino}]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="53" height="16" isPrintWhenDetailOverflows="true"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Integer"><![CDATA[$F{id}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="32" width="554" height="16" isPrintWhenDetailOverflows="true" backcolor="#CCCCCC"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Değişecek Parçalar ve Yapılacak işlemler"]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement x="0" y="48" width="554" height="24" isRemoveLineWhenBlank="true">
+						<printWhenExpression><![CDATA[$F{ariza_garanti}==true]]></printWhenExpression>
+					</reportElement>
+					<textField isBlankWhenNull="true">
+						<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="554" height="24" isPrintWhenDetailOverflows="true"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["GARANTİ KAPSAMINDA YAPILMIŞTIR"]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="0" y="72" width="554" height="24" isRemoveLineWhenBlank="true">
+						<printWhenExpression><![CDATA[$F{durum}==4]]></printWhenExpression>
+					</reportElement>
+					<textField isBlankWhenNull="true">
+						<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="554" height="24" isPrintWhenDetailOverflows="true"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["GERİ GÖNDERİLMİŞTİR. İŞLEM YAPILMAMIŞTIR."]]></textFieldExpression>
+					</textField>
+				</frame>
+				<subreport>
+					<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" mode="Transparent" x="0" y="96" width="554" height="16" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+						<printWhenExpression><![CDATA[$F{ariza_garanti}!=true && $F{durum}!=4]]></printWhenExpression>
+					</reportElement>
+					<subreportParameter name="servis">
+						<subreportParameterExpression><![CDATA[$F{servis_id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="sterlin">
+						<subreportParameterExpression><![CDATA[$F{sterlin}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="dolar">
+						<subreportParameterExpression><![CDATA[$F{dolar}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ucretsizler">
+						<subreportParameterExpression><![CDATA[$F{ucretsiz}.split(",")]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="parabirimi">
+						<subreportParameterExpression><![CDATA[$F{parabirimi_id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ozelbirimler">
+						<subreportParameterExpression><![CDATA[$F{ozelbirim}.split(",")]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="degisenler">
+						<subreportParameterExpression><![CDATA["("+$F{degisenler}+")"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="genelbirimler">
+						<subreportParameterExpression><![CDATA[$F{genelbirim}.split(",")]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="fiyatdurum">
+						<subreportParameterExpression><![CDATA[$F{fiyatdurum}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="euro">
+						<subreportParameterExpression><![CDATA[$F{euro}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ozel">
+						<subreportParameterExpression><![CDATA[$F{ozel}.split(";")]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="genel">
+						<subreportParameterExpression><![CDATA[$F{genel}.split(";")]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "parcalar.jasper"]]></subreportExpression>
+				</subreport>
+				<frame>
+					<reportElement positionType="Float" x="0" y="112" width="554" height="80"/>
+					<textField isBlankWhenNull="true">
+						<reportElement positionType="Float" mode="Transparent" x="0" y="64" width="421" height="16" isPrintWhenDetailOverflows="true" forecolor="#FF0000" backcolor="#FFFFFF"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["TOPLAM TUTAR:"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement positionType="Float" mode="Transparent" x="0" y="48" width="421" height="16" isPrintWhenDetailOverflows="true" forecolor="#FF0000" backcolor="#FFFFFF"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["KDV TUTARI:"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement positionType="Float" mode="Transparent" x="0" y="32" width="421" height="16" isPrintWhenDetailOverflows="true" forecolor="#FF0000" backcolor="#FFFFFF"/>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["TUTAR:"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement positionType="Float" mode="Transparent" x="0" y="0" width="421" height="16" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FF0000" backcolor="#FFFFFF">
+							<printWhenExpression><![CDATA[$F{indirim}==true]]></printWhenExpression>
+						</reportElement>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["FİYATI:"]]></textFieldExpression>
+					</textField>
+					<textField pattern="" isBlankWhenNull="true">
+						<reportElement positionType="Float" mode="Transparent" x="421" y="0" width="133" height="16" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FF0000" backcolor="#FFFFFF">
+							<printWhenExpression><![CDATA[$F{indirim}==true]]></printWhenExpression>
+						</reportElement>
+						<box leftPadding="0" rightPadding="10">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineWidth="0.5" lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineWidth="0.5" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{fiyat2}.compareTo(new BigDecimal(0))==0 ? $F{fiyat}+" "+$F{birimi} :
+$F{fiyat}.compareTo(new BigDecimal(0))==0 ? $F{fiyat2}+" "+$F{birimi2} :
+    $F{fiyat}+" "+$F{birimi}+" + "+$F{fiyat2}+" "+$F{birimi2}]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement positionType="Float" mode="Transparent" x="0" y="16" width="421" height="16" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FF0000" backcolor="#FFFFFF">
+							<printWhenExpression><![CDATA[$F{indirim}==true]]></printWhenExpression>
+						</reportElement>
+						<box leftPadding="5">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["İNDİRİM ORANI:"]]></textFieldExpression>
+					</textField>
+					<textField pattern="" isBlankWhenNull="true">
+						<reportElement positionType="Float" mode="Transparent" x="421" y="16" width="133" height="16" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FF0000" backcolor="#FFFFFF">
+							<printWhenExpression><![CDATA[$F{indirim}==true]]></printWhenExpression>
+						</reportElement>
+						<box leftPadding="0" rightPadding="10">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineWidth="0.5" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["% "+$F{indirimorani}]]></textFieldExpression>
+					</textField>
+					<textField pattern="" isBlankWhenNull="true">
+						<reportElement positionType="Float" mode="Transparent" x="421" y="32" width="133" height="16" isPrintWhenDetailOverflows="true" forecolor="#FF0000" backcolor="#FFFFFF"/>
+						<box leftPadding="0" rightPadding="10">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineWidth="0.5" lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineWidth="0.5" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{tutar2}.compareTo(new BigDecimal(0))==0 ? $F{tutar}+" "+$F{birimi} :
+$F{tutar}.compareTo(new BigDecimal(0))==0 ? $F{tutar2}+" "+$F{birimi2} :
+    $F{tutar}+" "+$F{birimi}+" + "+$F{tutar2}+" "+$F{birimi2}]]></textFieldExpression>
+					</textField>
+					<textField pattern="" isBlankWhenNull="true">
+						<reportElement positionType="Float" mode="Transparent" x="421" y="48" width="133" height="16" isPrintWhenDetailOverflows="true" forecolor="#FF0000" backcolor="#FFFFFF"/>
+						<box leftPadding="0" rightPadding="10">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineWidth="0.5" lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineWidth="0.5" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{kdv2}.compareTo(new BigDecimal(0))==0 ? $F{kdv}+" "+$F{birimi} :
+$F{kdv}.compareTo(new BigDecimal(0))==0  ? $F{kdv2}+" "+$F{birimi2} :
+    $F{kdv}+" "+$F{birimi}+" + "+$F{kdv2}+" "+$F{birimi2}]]></textFieldExpression>
+					</textField>
+					<textField pattern="" isBlankWhenNull="true">
+						<reportElement positionType="Float" mode="Transparent" x="421" y="64" width="133" height="16" isPrintWhenDetailOverflows="true" forecolor="#FF0000" backcolor="#FFFFFF"/>
+						<box leftPadding="0" rightPadding="10">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineWidth="0.5" lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineWidth="0.5" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{toplamtutar2}.compareTo(new BigDecimal(0))==0 ? $F{toplamtutar}+" "+$F{birimi} :
+$F{toplamtutar}.compareTo(new BigDecimal(0))==0 ? $F{toplamtutar2}+" "+$F{birimi2} :
+    $F{toplamtutar}+" "+$F{birimi}+" + "+$F{toplamtutar2}+" "+$F{birimi2}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

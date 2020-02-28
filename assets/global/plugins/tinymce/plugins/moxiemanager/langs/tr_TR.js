@@ -1,0 +1,1 @@
+tinymce.addI18n('tr_TR',{"Insert file":"Dosya ekle","moxiemanager_insert":"Dosya ekle"});

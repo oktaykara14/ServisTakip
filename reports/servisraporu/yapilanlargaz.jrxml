@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="arizalar" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="yapilanlar" class="java.lang.String">
+		<defaultValueExpression><![CDATA["(138,4)"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="eskiserino" class="java.lang.String"/>
+	<parameter name="yapilanlarstr" class="java.lang.String">
+		<defaultValueExpression><![CDATA["138,4"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="kalibrasyonid" class="java.lang.Integer"/>
+	<parameter name="sertifika" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hf3" class="java.lang.String"/>
+	<parameter name="hf2" class="java.lang.String"/>
+	<parameter name="sayactip" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\servisraporu\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="durum" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hf32" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select left(a.yapilanlar,Len(a.yapilanlar)-1) as islemler
+from (
+    select(
+	select cast(a1.tanim as varchar(MAX))+', ' AS [text()]
+    	from dbo.yapilanlar a1 where a1.id IN $P!{yapilanlar}
+	order by charindex(
+             	','+cast(a1.id as varchar)+',' ,
+             	','+$P{yapilanlarstr}+',')
+	For XML Path ('')
+	) [yapilanlar]
+    ) [a]]]>
+	</queryString>
+	<field name="islemler" class="java.lang.String"/>
+	<detail>
+		<band height="130" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="130" isPrintWhenDetailOverflows="true"/>
+				<box topPadding="5" leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{islemler}+($P{eskiserino}!=null ? ", ESKİ SERİ NUMARASI: "+$P{eskiserino} : "")]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="0" y="50" width="555" height="80" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$P{durum}!=3 && $P{durum}!=5]]></printWhenExpression>
+				</reportElement>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="80" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+						<printWhenExpression><![CDATA[$P{sayactip}.equals("TURBIN") || $P{sayactip}.equals("ROTARY")]]></printWhenExpression>
+					</reportElement>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement positionType="Float" x="0" y="0" width="555" height="16" isPrintWhenDetailOverflows="true">
+							<printWhenExpression><![CDATA[new Boolean($P{kalibrasyonid}!=null)]]></printWhenExpression>
+						</reportElement>
+						<box topPadding="5" leftPadding="5">
+							<pen lineWidth="0.0"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial" size="10" isBold="true"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["KALİBRASYON DEĞERLERİ EKTEDİR."]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement positionType="Float" x="0" y="16" width="555" height="16" isPrintWhenDetailOverflows="true">
+							<printWhenExpression><![CDATA[new Boolean($P{sertifika}!=null)]]></printWhenExpression>
+						</reportElement>
+						<box topPadding="5" leftPadding="5">
+							<pen lineWidth="0.0"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial" size="10" isBold="true"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["SERTİFİKA NUMARASI  : "+($P{sertifika}==null ? "" : $P{sertifika})]]></textFieldExpression>
+					</textField>
+					<frame>
+						<reportElement x="0" y="32" width="555" height="48">
+							<printWhenExpression><![CDATA[new Boolean($P{hf2}!=null || $P{hf3}!=null || $P{hf32}!=null)]]></printWhenExpression>
+						</reportElement>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="0" y="28" width="250" height="16" isPrintWhenDetailOverflows="true"/>
+							<box topPadding="5" leftPadding="5">
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textElement verticalAlignment="Top">
+								<font fontName="Arial" size="10" isBold="true"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA["HF2 : "+($P{hf2}==null ? "" : $P{hf2})]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="250" y="28" width="305" height="16" isPrintWhenDetailOverflows="true"/>
+							<box topPadding="5" leftPadding="5">
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textElement verticalAlignment="Top">
+								<font fontName="Arial" size="10" isBold="true"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA["HF3 : "+($P{hf3}==null ? "" : $P{hf3})+
+($P{hf32}==null ? "" : " HF3-II : "+$P{hf32})]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="0" y="0" width="555" height="28" isPrintWhenDetailOverflows="true"/>
+							<box topPadding="5" leftPadding="5">
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textElement verticalAlignment="Top">
+								<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA["ÖNEMLİ NOT : SAYAÇTA HF ÜZERİNDEN VERİ ALINIRKEN AŞAĞIDA BELİRTİLEN HF NUMARALARI DİKKATE ALINMALIDIR."]]></textFieldExpression>
+						</textField>
+					</frame>
+				</frame>
+			</frame>
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="50" width="555" height="80" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$P{sayactip}.equals("DİYAFRAM") && $P{durum}!=2 && $P{durum}!=8]]></printWhenExpression>
+				</reportElement>
+				<subreport>
+					<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Transparent" x="0" y="0" width="555" height="80" isPrintWhenDetailOverflows="true"/>
+					<subreportParameter name="kalibrasyonid">
+						<subreportParameterExpression><![CDATA[$P{kalibrasyonid}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "kalibrasyon.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

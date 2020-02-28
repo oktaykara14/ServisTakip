@@ -1,0 +1,959 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="eskikalibrasyonliste" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.2100000000000073"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="servisraporuid" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\servisraporuliste\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ka.*,
+srt.serino,srt.eskiserino,srt.kalibrasyon_id,
+ur.yeradi,
+n.cariadi,
+sm.marka,
+st.tipadi,st.sayactur_id,
+sa.sayacadi,sa.kisaadi,sa.rapor_sira,
+k.grup_id,k.adi_soyadi
+from dbo.arizakayit a
+left join sayacgelen sg on a.sayacgelen_id=sg.id
+left join servistakip srt on srt.sayacgelen_id=sg.id
+left join kalibrasyon ka on ka.id=srt.kalibrasyon_id
+left join dbo.uretimyer ur on sg.uretimyer_id=ur.id
+left join dbo.sayacadi sa on a.sayacadi_id=sa.id
+left join dbo.sayactip st on sa.sayactip_id=st.id
+left join dbo.sayacmarka sm on st.sayacmarka_id=sm.id
+left join dbo.netsiscari n on a.netsiscari_id=n.id
+left join dbo.kullanici k on a.arizakayit_kullanici_id=k.id
+where a.servisraporu_id=$P{servisraporuid} AND st.tipadi='DİYAFRAM' and a.arizakayit_durum!=2
+and a.arizakayit_durum!=8
+order by rapor_sira asc,marka asc]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="sayacgelen_id" class="java.lang.Integer"/>
+	<field name="sayacadi_id" class="java.lang.Integer"/>
+	<field name="kalibrasyon_seri" class="java.lang.String"/>
+	<field name="imalyili" class="java.sql.Date"/>
+	<field name="istasyon_id" class="java.lang.Integer"/>
+	<field name="kalibrasyongrup_id" class="java.lang.Integer"/>
+	<field name="kalibrasyonsayisi" class="java.lang.Integer"/>
+	<field name="sira" class="java.lang.Integer"/>
+	<field name="kalibrasyonstandart_id" class="java.lang.Integer"/>
+	<field name="durum" class="java.lang.Integer"/>
+	<field name="lf" class="java.lang.Integer"/>
+	<field name="nokta1sapma" class="java.math.BigDecimal"/>
+	<field name="sonuc1" class="java.math.BigDecimal"/>
+	<field name="nokta2sapma" class="java.math.BigDecimal"/>
+	<field name="sonuc2" class="java.math.BigDecimal"/>
+	<field name="nokta3sapma" class="java.math.BigDecimal"/>
+	<field name="sonuc3" class="java.math.BigDecimal"/>
+	<field name="nokta4sapma" class="java.math.BigDecimal"/>
+	<field name="sonuc4" class="java.math.BigDecimal"/>
+	<field name="nokta5sapma" class="java.math.BigDecimal"/>
+	<field name="sonuc5" class="java.math.BigDecimal"/>
+	<field name="nokta6sapma" class="java.math.BigDecimal"/>
+	<field name="sonuc6" class="java.math.BigDecimal"/>
+	<field name="nokta7sapma" class="java.math.BigDecimal"/>
+	<field name="sonuc7" class="java.math.BigDecimal"/>
+	<field name="hf2" class="java.lang.Integer"/>
+	<field name="hf2nokta1sapma" class="java.math.BigDecimal"/>
+	<field name="hf2sonuc1" class="java.math.BigDecimal"/>
+	<field name="hf2nokta2sapma" class="java.math.BigDecimal"/>
+	<field name="hf2sonuc2" class="java.math.BigDecimal"/>
+	<field name="hf2nokta3sapma" class="java.math.BigDecimal"/>
+	<field name="hf2sonuc3" class="java.math.BigDecimal"/>
+	<field name="hf2nokta4sapma" class="java.math.BigDecimal"/>
+	<field name="hf2sonuc4" class="java.math.BigDecimal"/>
+	<field name="hf2nokta5sapma" class="java.math.BigDecimal"/>
+	<field name="hf2sonuc5" class="java.math.BigDecimal"/>
+	<field name="hf2nokta6sapma" class="java.math.BigDecimal"/>
+	<field name="hf2sonuc6" class="java.math.BigDecimal"/>
+	<field name="hf2nokta7sapma" class="java.math.BigDecimal"/>
+	<field name="hf2sonuc7" class="java.math.BigDecimal"/>
+	<field name="hf3" class="java.lang.Integer"/>
+	<field name="hf3nokta1sapma" class="java.math.BigDecimal"/>
+	<field name="hf3sonuc1" class="java.math.BigDecimal"/>
+	<field name="hf3nokta2sapma" class="java.math.BigDecimal"/>
+	<field name="hf3sonuc2" class="java.math.BigDecimal"/>
+	<field name="hf3nokta3sapma" class="java.math.BigDecimal"/>
+	<field name="hf3sonuc3" class="java.math.BigDecimal"/>
+	<field name="hf3nokta4sapma" class="java.math.BigDecimal"/>
+	<field name="hf3sonuc4" class="java.math.BigDecimal"/>
+	<field name="hf3nokta5sapma" class="java.math.BigDecimal"/>
+	<field name="hf3sonuc5" class="java.math.BigDecimal"/>
+	<field name="hf3nokta6sapma" class="java.math.BigDecimal"/>
+	<field name="hf3sonuc6" class="java.math.BigDecimal"/>
+	<field name="hf3nokta7sapma" class="java.math.BigDecimal"/>
+	<field name="hf3sonuc7" class="java.math.BigDecimal"/>
+	<field name="hf32" class="java.lang.Integer"/>
+	<field name="hf32nokta1sapma" class="java.math.BigDecimal"/>
+	<field name="hf32sonuc1" class="java.math.BigDecimal"/>
+	<field name="hf32nokta2sapma" class="java.math.BigDecimal"/>
+	<field name="hf32sonuc2" class="java.math.BigDecimal"/>
+	<field name="hf32nokta3sapma" class="java.math.BigDecimal"/>
+	<field name="hf32sonuc3" class="java.math.BigDecimal"/>
+	<field name="hf32nokta4sapma" class="java.math.BigDecimal"/>
+	<field name="hf32sonuc4" class="java.math.BigDecimal"/>
+	<field name="hf32nokta5sapma" class="java.math.BigDecimal"/>
+	<field name="hf32sonuc5" class="java.math.BigDecimal"/>
+	<field name="hf32nokta6sapma" class="java.math.BigDecimal"/>
+	<field name="hf32sonuc6" class="java.math.BigDecimal"/>
+	<field name="hf32nokta7sapma" class="java.math.BigDecimal"/>
+	<field name="hf32sonuc7" class="java.math.BigDecimal"/>
+	<field name="kullanici_id" class="java.lang.Integer"/>
+	<field name="kalibrasyontarih" class="java.sql.Timestamp"/>
+	<field name="sicaklik" class="java.math.BigDecimal"/>
+	<field name="bagilnem" class="java.lang.Integer"/>
+	<field name="hissedilen" class="java.math.BigDecimal"/>
+	<field name="gdurum" class="java.lang.String"/>
+	<field name="gkalibrasyontarih" class="java.lang.String"/>
+	<field name="ndurum" class="java.lang.String"/>
+	<field name="serino" class="java.lang.String"/>
+	<field name="eskiserino" class="java.lang.String"/>
+	<field name="kalibrasyon_id" class="java.lang.Integer"/>
+	<field name="yeradi" class="java.lang.String"/>
+	<field name="cariadi" class="java.lang.String"/>
+	<field name="marka" class="java.lang.String"/>
+	<field name="tipadi" class="java.lang.String"/>
+	<field name="sayactur_id" class="java.lang.Integer"/>
+	<field name="sayacadi" class="java.lang.String"/>
+	<field name="kisaadi" class="java.lang.String"/>
+	<field name="rapor_sira" class="java.lang.Integer"/>
+	<field name="grup_id" class="java.lang.Integer"/>
+	<field name="adi_soyadi" class="java.lang.String"/>
+	<variable name="nokta1max" class="java.math.BigDecimal" calculation="Highest">
+		<variableExpression><![CDATA[$F{sonuc1}]]></variableExpression>
+	</variable>
+	<variable name="nokta1min" class="java.math.BigDecimal" calculation="Lowest">
+		<variableExpression><![CDATA[$F{sonuc1}]]></variableExpression>
+	</variable>
+	<variable name="nokta1avg" class="java.math.BigDecimal" calculation="Average">
+		<variableExpression><![CDATA[$F{sonuc1}]]></variableExpression>
+	</variable>
+	<variable name="nokta1dev" class="java.math.BigDecimal" calculation="StandardDeviation">
+		<variableExpression><![CDATA[$F{sonuc1}]]></variableExpression>
+	</variable>
+	<variable name="nokta2max" class="java.math.BigDecimal" calculation="Highest">
+		<variableExpression><![CDATA[$F{sonuc2}]]></variableExpression>
+	</variable>
+	<variable name="nokta2min" class="java.math.BigDecimal" calculation="Lowest">
+		<variableExpression><![CDATA[$F{sonuc2}]]></variableExpression>
+	</variable>
+	<variable name="nokta2avg" class="java.math.BigDecimal" calculation="Average">
+		<variableExpression><![CDATA[$F{sonuc2}]]></variableExpression>
+	</variable>
+	<variable name="nokta2dev" class="java.math.BigDecimal" calculation="StandardDeviation">
+		<variableExpression><![CDATA[$F{sonuc2}]]></variableExpression>
+	</variable>
+	<variable name="nokta3max" class="java.math.BigDecimal" calculation="Highest">
+		<variableExpression><![CDATA[$F{sonuc3}]]></variableExpression>
+	</variable>
+	<variable name="nokta3min" class="java.math.BigDecimal" calculation="Lowest">
+		<variableExpression><![CDATA[$F{sonuc3}]]></variableExpression>
+	</variable>
+	<variable name="nokta3avg" class="java.math.BigDecimal" calculation="Average">
+		<variableExpression><![CDATA[$F{sonuc3}]]></variableExpression>
+	</variable>
+	<variable name="nokta3dev" class="java.math.BigDecimal" calculation="StandardDeviation">
+		<variableExpression><![CDATA[$F{sonuc3}]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="206">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="18" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textField isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="46" y="0" width="257" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{yeradi}.toUpperCase()+" / "]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd.MM.yyyy">
+					<reportElement x="303" y="0" width="79" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="25" width="555" height="144"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="239" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["SAYAÇ İSTASYONU / KAYIT NO"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="18" width="239" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["FORM CİNSİ"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="36" width="239" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["MUAYENE TARİHİ"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="54" width="239" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["SAYAÇ ADEDİ"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="72" width="191" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["İSTATİKSEL VERİLER"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="239" y="0" width="16" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="239" y="18" width="16" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="239" y="36" width="16" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="239" y="54" width="16" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="276" y="0" width="279" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["BELL PROVER 200L / MGTB VT-1 / VT-2"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="276" y="18" width="279" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd.MM.yyyy" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="276" y="36" width="279" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{kalibrasyontarih}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="276" y="54" width="279" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="191" y="71" width="114" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["ORTALAMA : "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="191" y="89" width="114" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["STANDART SAPMA : "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="191" y="125" width="114" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["EN DÜŞÜK : "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="191" y="107" width="114" height="18"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["EN YÜKSEK : "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="305" y="72" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta1avg}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="305" y="90" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta1dev}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="305" y="108" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta1max}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="305" y="126" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta1min}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="355" y="108" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta2max}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="355" y="72" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta2avg}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="355" y="126" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta2min}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="355" y="90" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta2dev}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="405" y="108" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta3max}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="405" y="72" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta3avg}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="405" y="126" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta3min}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="405" y="90" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{nokta3dev}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="169" width="555" height="37"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textField>
+					<reportElement mode="Opaque" x="255" y="0" width="50" height="37" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["İMAL YILI"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="158" y="0" width="97" height="37" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["SAYAÇ NO"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="305" y="0" width="150" height="19" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["HATA ORANLARI"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="455" y="0" width="100" height="37" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["AÇIKLAMA"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement mode="Opaque" x="30" y="0" width="65" height="37" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["MARKA"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement mode="Opaque" x="95" y="0" width="65" height="37" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["MODEL"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement mode="Opaque" x="0" y="0" width="30" height="37" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["SIRA NO"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="305" y="19" width="50" height="18" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Qmaks"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="355" y="19" width="50" height="18" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["0,2*Qmaks"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="405" y="19" width="50" height="18" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Qmin"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="18" splitType="Prevent">
+			<frame>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="18"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="95" y="0" width="65" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{kisaadi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="yyyy" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="255" y="0" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{imalyili}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="160" y="0" width="95" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{serino}+($F{eskiserino}!=null ? " ("+$F{eskiserino}+")" : "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="30" y="0" width="65" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{marka}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="305" y="0" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{sonuc1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="355" y="0" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{sonuc2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="405" y="0" width="50" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{sonuc3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="455" y="0" width="100" height="18" isPrintWhenDetailOverflows="true"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<frame>
+				<reportElement positionType="Float" x="0" y="13" width="555" height="37"/>
+				<textField isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="84" y="0" width="155" height="20"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["SERVİS SORUMLUSU"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="287" y="0" width="155" height="20"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["S.S.H. BİRİM YÖNETİCİSİ"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="84" y="20" width="155" height="17"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Arial" size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{adi_soyadi}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="287" y="20" width="155" height="17"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Arial" size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Erhan Can"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<noData>
+		<band height="1">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="1"/>
+				<image scaleImage="RealHeight" hAlign="Center">
+					<reportElement x="0" y="0" width="555" height="1"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/hata.jpeg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

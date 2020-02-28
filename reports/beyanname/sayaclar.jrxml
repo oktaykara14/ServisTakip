@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sayaclar" pageWidth="573" pageHeight="842" columnWidth="573" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.771561000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="secilenler" class="java.lang.String">
+		<defaultValueExpression><![CDATA["(1,2,3,4)"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="beyanno" class="java.lang.String"/>
+	<parameter name="tarih" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[declare @sayi int=0
+select @sayi=count(s.serino) from dbo.sayacgelen s
+	left join dbo.arizakayit ak on ak.sayacgelen_id=s.id
+	left join dbo.sayacadi sa on s.sayacadi_id=sa.id
+	left join dbo.sayaccap sc on s.sayaccap_id=sc.id
+	left join dbo.sayac sy on ak.sayac_id=sy.id
+	left join dbo.sayactur st on st.id=sa.sayactur_id
+	left join dbo.sayactip syt on syt.id=sa.sayactip_id
+	left join dbo.sayacmarka sm on sm.id=syt.sayacmarka_id
+	where s.id IN $P!{secilenler}
+set @sayi=CASE WHEN @sayi%50=0 THEN @sayi ELSE 50*((@sayi/50)+1) END
+select z.serino,z.sayacadi,z.kisaadi,z.capadi,z.tipadi,z.marka,z.baglanticapi,z.qmax FROM (
+select b.*,ROW_NUMBER() OVER (ORDER BY b.marka) as row FROM (
+select s.serino,sa.sayacadi,sa.kisaadi,substring(sc.capadi,3,DATALENGTH(sc.capadi)-2) capadi,
+syt.kisaadi tipadi,sm.marka,so.baglanticapi,so.qmax from dbo.sayacgelen s
+	left join dbo.arizakayit ak on ak.sayacgelen_id=s.id
+	left join dbo.sayacadi sa on s.sayacadi_id=sa.id
+	left join dbo.sayaccap sc on s.sayaccap_id=sc.id
+	left join dbo.sayac sy on ak.sayac_id=sy.id
+	left join dbo.sayactur st on st.id=sa.sayactur_id
+	left join dbo.sayactip syt on syt.id=sa.sayactip_id
+	left join dbo.sayacmarka sm on sm.id=syt.sayacmarka_id
+	left join dbo.sayacozellik so on sa.id=so.sayacadi_id and sc.id=so.sayaccap_id
+	where s.id IN $P!{secilenler}
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+	union all select '','','','','','zzzzz','',''
+       )b
+) z where z.row > 0 and z.row <=@sayi]]>
+	</queryString>
+	<field name="serino" class="java.lang.String"/>
+	<field name="sayacadi" class="java.lang.String"/>
+	<field name="kisaadi" class="java.lang.String"/>
+	<field name="capadi" class="java.lang.String"/>
+	<field name="tipadi" class="java.lang.String"/>
+	<field name="marka" class="java.lang.String"/>
+	<field name="baglanticapi" class="java.lang.String"/>
+	<field name="qmax" class="java.lang.String"/>
+	<variable name="var" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{var}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.lang.Integer(1)]]></initialValueExpression>
+	</variable>
+	<detail>
+		<band height="11" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="573" height="11" isPrintWhenDetailOverflows="true"/>
+				<textField pattern="dd.MM.yy" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToBandHeight" x="94" y="0" width="57" height="11" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{kisaadi}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="39" height="11" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{var}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToBandHeight" x="39" y="0" width="55" height="11" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{serino}.equals("") ? "" : $F{marka}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="151" y="0" width="64" height="11" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{tipadi}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToBandHeight" x="274" y="0" width="58" height="11" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{serino}.equals("") ? "" : ($F{capadi}.equals("") ? $F{baglanticapi} : $F{capadi})]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="215" y="0" width="59" height="11" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{serino}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="332" y="0" width="64" height="11" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{serino}.equals("") ? "" :$F{qmax}]]></textFieldExpression>
+				</textField>
+				<textField pattern="0.000" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="396" y="0" width="64" height="11" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{serino}.equals("") ? "" :"0,000"]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="460" y="0" width="57" height="11" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="517" y="0" width="56" height="11" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

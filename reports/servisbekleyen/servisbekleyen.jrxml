@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sayacbilgi" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.text.truncate.at.char" value="true"/>
+	<property name="ireport.zoom" value="1.3310000000000015"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="subekodu" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tarihtipi" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tarihcheck" class="java.lang.String"/>
+	<parameter name="ilktarih" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sontarih" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nilktarih" class="java.lang.String"/>
+	<parameter name="nsontarih" class="java.lang.String"/>
+	<parameter name="adrescheck" class="java.lang.String"/>
+	<parameter name="adres" class="java.lang.String"/>
+	<parameter name="sondurum" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="kayittipi" class="java.lang.Integer"/>
+	<parameter name="sericheck" class="java.lang.String"/>
+	<parameter name="serino1" class="java.lang.String"/>
+	<parameter name="serino2" class="java.lang.String"/>
+	<parameter name="aciklamacheck" class="java.lang.String"/>
+	<parameter name="aciklama" class="java.lang.String"/>
+	<parameter name="query" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[(new Boolean($P{sericheck}.equals("1"))) ?
+	((new Boolean($P{tarihcheck}.equals("1"))) ?
+		($P{kayittipi}==-1 ?
+			(new Boolean($P{adrescheck}.equals("1")) ?
+				(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc")
+				:(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi")+" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc"))
+			:(new Boolean($P{adrescheck}.equals("1")) ?
+				(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc")
+				:(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc")))
+		:($P{kayittipi}==-1 ?
+			(new Boolean($P{adrescheck}.equals("1")) ?
+				(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") order by tipi asc,durum asc,kayitadres asc")
+				:(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") order by tipi asc,durum asc,kayitadres asc"))
+			:(new Boolean($P{adrescheck}.equals("1")) ?
+				(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") order by tipi asc,durum asc,kayitadres asc")
+				:(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.deleted_at is null and (sa.serino between "+$P{serino1}+" and "+$P{serino2}+") order by tipi asc,durum asc,kayitadres asc"))))
+	:((new Boolean($P{tarihcheck}.equals("1"))) ?
+		($P{kayittipi}==-1 ?
+			(new Boolean($P{adrescheck}.equals("1")) ?
+				(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi")+" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.deleted_at is null and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi")+" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc")
+				:(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi")+" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.deleted_at is null and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi")+" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc"))
+			:(new Boolean($P{adrescheck}.equals("1")) ?
+				(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.deleted_at is null and "+($P{tarihtipi}==1 ? "m.acilmatarihi" : "m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc")
+				:(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null and "+($P{tarihtipi}==1 ? "m.acilmatarihi" :"m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.deleted_at is null and "+($P{tarihtipi}==1 ? "m.acilmatarihi" :"m.kapanmatarihi") +" between '"+$P{nilktarih}+"' and '"+$P{nsontarih}+"' order by tipi asc,durum asc,kayitadres asc")))
+		:($P{kayittipi}==-1 ?
+			(new Boolean($P{adrescheck}.equals("1")) ?
+				(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.deleted_at is null order by tipi asc,durum asc,kayitadres asc")
+				:(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.deleted_at is null order by tipi asc,durum asc,kayitadres asc"))
+			:(new Boolean($P{adrescheck}.equals("1")) ?
+				(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.nkayitadres LIKE '%"+$P{adres}+"%' and m.deleted_at is null order by tipi asc,durum asc,kayitadres asc")
+				:(new Boolean($P{aciklamacheck}.equals("1")) ?
+					"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.naciklama LIKE '%"+$P{aciklama}+"%' and m.deleted_at is null order by tipi asc,durum asc,kayitadres asc"
+					:"select m.*,a.adisoyadi,a.telefon,a.faturaadresi,sa.adres,sa.serino,s.adi,sa.iletisim from dbo.serviskayit m left join dbo.sube s on m.subekodu=s.subekodu and s.aktif=1 left join dbo.abonetahsis ta on m.abonetahsis_id=ta.id left join dbo.abone a on ta.abone_id=a.id left join dbo.abonesayac sa on ta.abonesayac_id=sa.id where s.subekodu="+$P{subekodu}+" and m.durum IN("+$P{sondurum}+") and m.tipi="+$P{kayittipi}+" and m.deleted_at is null order by tipi asc,durum asc,kayitadres asc"))))]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[$P!{query}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="subekodu" class="java.lang.Integer"/>
+	<field name="abonetahsis_id" class="java.lang.Integer"/>
+	<field name="netsiscari_id" class="java.lang.Integer"/>
+	<field name="uretimyer_id" class="java.lang.Integer"/>
+	<field name="durum" class="java.lang.Integer"/>
+	<field name="tipi" class="java.lang.Integer"/>
+	<field name="subepersonel_id" class="java.lang.Integer"/>
+	<field name="acilmatarihi" class="java.sql.Timestamp"/>
+	<field name="kapanmatarihi" class="java.sql.Timestamp"/>
+	<field name="servisnotu" class="java.lang.String"/>
+	<field name="aciklama" class="java.lang.String"/>
+	<field name="ilkendeks" class="java.lang.Double"/>
+	<field name="sonendeks" class="java.lang.Double"/>
+	<field name="kullanici_id" class="java.lang.Integer"/>
+	<field name="created_at" class="java.sql.Timestamp"/>
+	<field name="updated_at" class="java.sql.Timestamp"/>
+	<field name="deleted_at" class="java.sql.Timestamp"/>
+	<field name="gdurum" class="java.lang.String"/>
+	<field name="gtipi" class="java.lang.String"/>
+	<field name="adisoyadi" class="java.lang.String"/>
+	<field name="telefon" class="java.lang.String"/>
+	<field name="faturaadresi" class="java.lang.String"/>
+	<field name="kayitadres" class="java.lang.String"/>
+	<field name="serino" class="java.lang.String"/>
+	<field name="adi" class="java.lang.String"/>
+	<field name="iletisim" class="java.lang.String"/>
+	<variable name="var" class="java.lang.Integer" resetType="Group" resetGroup="durum" calculation="Count">
+		<variableExpression><![CDATA[$V{var}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.lang.Integer(1)]]></initialValueExpression>
+	</variable>
+	<variable name="rowcount" class="java.lang.Integer" resetType="Group" resetGroup="durum" calculation="Count">
+		<variableExpression><![CDATA[$V{durum_COUNT}]]></variableExpression>
+	</variable>
+	<group name="tipi">
+		<groupExpression><![CDATA[$F{tipi}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<group name="durum" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{durum}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="durum">
+					<reportElement stretchType="RelativeToTallestObject" x="204" y="0" width="404" height="20"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{gtipi}.toUpperCase()+"("+$V{rowcount}+") - "+$F{gdurum}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="127" y="0" width="77" height="20"/>
+					<box rightPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["KAYIT TİPİ :"]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement x="0" y="20" width="832" height="20"/>
+					<textField>
+						<reportElement x="195" y="0" width="48" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["SERİ NO"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="243" y="0" width="74" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["TELEFONU"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="0" y="0" width="22" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["#"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="69" y="0" width="126" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["ABONE ADI SOYADI"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="317" y="0" width="314" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["ADRESİ"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="631" y="0" width="201" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["SON DURUM"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="22" y="0" width="47" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$P{tarihtipi}==1 ? "A.TARİH" :"K.TARİH"]]></textFieldExpression>
+					</textField>
+				</frame>
+				<textField>
+					<reportElement x="608" y="0" width="44" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["TARİH:"]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement x="652" y="0" width="180" height="20" isRemoveLineWhenBlank="true">
+						<printWhenExpression><![CDATA[new Boolean($P{tarihcheck}.equals("1"))]]></printWhenExpression>
+					</reportElement>
+					<textField pattern="dd.MM.yyyy">
+						<reportElement x="94" y="0" width="86" height="20"/>
+						<box leftPadding="0"/>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.util.Date"><![CDATA[$P{sontarih}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="79" y="0" width="15" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["-"]]></textFieldExpression>
+					</textField>
+					<textField pattern="dd.MM.yyyy">
+						<reportElement x="0" y="0" width="180" height="20">
+							<printWhenExpression><![CDATA[new Boolean(!$P{tarihcheck}.equals("1"))]]></printWhenExpression>
+						</reportElement>
+						<box leftPadding="5"/>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+					</textField>
+					<textField pattern="dd.MM.yyyy">
+						<reportElement x="0" y="0" width="79" height="20"/>
+						<box leftPadding="5"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="11"/>
+						</textElement>
+						<textFieldExpression class="java.util.Date"><![CDATA[$P{ilktarih}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="31" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="832" height="31"/>
+				<image scaleImage="RetainShape" vAlign="Top">
+					<reportElement x="0" y="0" width="100" height="28"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/manaslogo.png"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="127" y="0" width="525" height="28"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["SERVİS KAYIT SAYAÇ LİSTESİ"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="14" splitType="Prevent">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="832" height="14"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="195" y="0" width="48" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{serino}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="243" y="0" width="74" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{telefon}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="22" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{var}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="69" y="0" width="126" height="14"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{adisoyadi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="317" y="0" width="314" height="14"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{kayitadres}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="631" y="0" width="201" height="14"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($F{aciklama}==null ? "" : $F{aciklama})+" "+$F{iletisim}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yy" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="22" y="0" width="47" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$P{tarihtipi}==1 ? $F{acilmatarihi} : $F{kapanmatarihi}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="14" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="832" height="14"/>
+				<textField>
+					<reportElement x="694" y="0" width="98" height="14" forecolor="#FF0000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Sayfa "+$V{PAGE_NUMBER}+" -"]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy HH.mm">
+					<reportElement x="0" y="0" width="100" height="14" forecolor="#FF0000"/>
+					<textElement>
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="792" y="0" width="40" height="14" forecolor="#FF0000"/>
+					<textElement>
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<noData>
+		<band height="1">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="832" height="1"/>
+				<image scaleImage="RealHeight" hAlign="Center">
+					<reportElement x="0" y="0" width="832" height="1"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/hata2.jpeg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

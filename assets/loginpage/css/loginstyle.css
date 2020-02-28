@@ -1,0 +1,316 @@
+.login-form {
+   width: 100%;
+    
+    position: relative;
+    float: left;
+    background: rgba(0, 0, 0, 0.15);
+}
+/* .login-form:before { */
+  /* content: ''; */
+  /* position: absolute; */
+  /* top: -2px; */
+  /* left: 0; */
+  /* height: 2px; */
+  /* width: 100%; */
+  /* /*background: linear-gradient(to right, #35c3c1, #00d6b7);*/ 
+  /* background:#ffce54; */
+/* } */
+
+.flex-row {
+  display: block;
+    /*display: contents;*/
+    float: left;
+	padding:15px;
+}
+
+.lf--label {
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    background: #f5f6f8;
+    cursor: pointer;
+    padding: 11px 12px 13px 12px;
+}
+
+.lf--input {
+ 
+  padding: 1em;
+  color: #fff;
+  /*font-size: 1rem;*/
+    background: transparent;
+    border: 1px solid #ffce54;
+    border-radius: 5px;
+}
+
+.lf--input2 {
+  
+  padding: 1em;
+  border: 0;
+  color: black;
+  /*font-size: 1rem;*/
+  background: white;
+    
+}
+
+.lf--input:focus {
+  outline: none;
+  transition: -webkit-transform .15s ease;
+  transition: transform .15s ease, -webkit-transform .15s ease;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.lf--submit {
+  /*display: block;*/
+  padding: 1em;
+  /*width: 100%;*/
+  /*background: linear-gradient(to right, #35c3c1, #00d6b7);*/
+  background:#ffce54;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  /*font-size: .75em;*/
+  /*font-weight: 600;*/
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+.lf--submit:focus {
+  outline: none;
+  transition: -webkit-transform .15s ease;
+  transition: transform .15s ease, -webkit-transform .15s ease;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.lf--forgot {
+  margin-top: 1em;
+    color: #ffce54;
+    text-align: center;
+    position: relative;
+    float: left;
+    padding: 10px 0px 0px 15px;
+}
+
+::-webkit-input-placeholder {
+  color: #000;
+}
+
+:-ms-input-placeholder {
+  color: #000;
+}
+
+::-ms-input-placeholder {
+  color: #000;
+}
+
+::placeholder {
+  color: #000;
+}
+
+
+@media screen and (max-width: 900px){
+.login-form {
+   width: 100%;
+    
+    position: relative;
+    float: left;
+    background: rgba(0, 0, 0, 0.15);
+}
+/* .login-form:before { */
+  /* content: ''; */
+  /* position: absolute; */
+  /* top: -2px; */
+  /* left: 0; */
+  /* height: 2px; */
+  /* width: 100%; */
+  /* /*background: linear-gradient(to right, #35c3c1, #00d6b7);*/ 
+  /* background:#ffce54; */
+/* } */
+
+  .login-form {
+    /*width: 765px;*/
+	/*width: 50vw;*/
+    /*max-width: 30em;*/
+  }
+
+.flex-row {
+  display: block;
+    /*display: contents;*/
+    float: left;
+	/*padding:15px;*/
+}
+
+.lf--label {
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    background: #f5f6f8;
+    cursor: pointer;
+    padding: 5px 6px 6px 6px;
+}
+
+.lf--input {
+ 
+  padding: 1em;
+  color: #fff;
+  background: transparent;
+  border: 1px solid #ffce54;
+  border-radius: 5px;
+}
+
+.lf--input2 {
+  
+    width: 25%;
+    padding: 7px;
+    border: 0;
+    color: black;
+    background: white;
+    
+}
+
+.lf--input:focus {
+  outline: none;
+  transition: -webkit-transform .15s ease;
+  transition: transform .15s ease, -webkit-transform .15s ease;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.lf--submit {
+  padding: 7px;
+  background:#ffce54;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+.lf--submit:focus {
+  outline: none;
+  transition: -webkit-transform .15s ease;
+  transition: transform .15s ease, -webkit-transform .15s ease;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.lf--forgot {
+  margin-top: 1em;
+    color: #ffce54;
+    text-align: center;
+    position: relative;
+    float: none;
+    padding: 0;
+	font-size:12px;
+}
+
+::-webkit-input-placeholder {
+  color: #000;
+}
+
+:-ms-input-placeholder {
+  color: #000;
+}
+
+::-ms-input-placeholder {
+  color: #000;
+}
+
+::placeholder {
+  color: #000;
+}	
+	
+}
+
+
+@media screen and (max-width: 499px) {
+.login-form {
+   width: 100%;
+    
+    position: relative;
+    float: left;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.flex-row {
+  display: block;
+    float: left;
+}
+
+.lf--label {
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    background: #f5f6f8;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.lf--input {
+  border: 0;
+  color: #fff;
+  background: transparent;
+  border-radius: 0px;
+}
+
+.lf--input2 {
+    width: 25%;
+	height: 18px;
+    padding: 3px;
+    border: 0;
+	border-radius: 0px;
+    color: black;
+    background: white;
+}
+
+.lf--input:focus {
+  outline: none;
+  transition: -webkit-transform .15s ease;
+  transition: transform .15s ease, -webkit-transform .15s ease;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.lf--submit {
+  padding: 4px;
+  background:#ffce54;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+.lf--submit:focus {
+  outline: none;
+  transition: -webkit-transform .15s ease;
+  transition: transform .15s ease, -webkit-transform .15s ease;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.lf--forgot {
+    color: #ffce54;
+    text-align: center;
+    position: relative;
+    float: none;
+    padding: 0;
+	font-size:10px;
+}
+
+::-webkit-input-placeholder {
+  color: #000;
+}
+
+:-ms-input-placeholder {
+  color: #000;
+}
+
+::-ms-input-placeholder {
+  color: #000;
+}
+
+::placeholder {
+  color: #000;
+}	
+
+}
+
+

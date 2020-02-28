@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="parcalar" pageWidth="1526" pageHeight="595" orientation="Landscape" columnWidth="1526" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.3310000000000022"/>
+	<property name="ireport.x" value="295"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<parameter name="sayacgelen_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\bekleyenlistesidetayli\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select z.sayacadi,z.arizakayit,z.fiyatlandirma,z.musterionay,z.kalibrasyon,z.depoteslim,z.capadi,z.yeradi,z.serino,z.teslimdurum,z.arizakayit_durum,z.durum,z.ariza_garanti,z.yenisayac,z.eklenmetarihi,
+z.toplamtutar,z.toplamtutar2,z.birimi,z.birimi2,z.degisenler,z.problemler,z.musteriaciklama,z.uretimtarihi,
+(select left(a.tanimlar,Len(a.tanimlar)-1)
+from (
+    select(
+	select cast(a1.tanim as varchar(MAX))+', ' AS [text()]
+    	from dbo.arizakod a1 where a1.id IN (SELECT element FROM dbo.split(z.problemler, ',')
+	 WHERE RTRIM(element) <> '')
+    	For XML Path ('')
+	) [tanimlar]
+    ) [a]) as arizalar,
+(select left(a.degisenler,Len(a.degisenler)-1)
+from (
+    select(
+	select cast(a1.tanim as varchar(MAX))+', ' AS [text()]
+    	from dbo.degisenler a1 where a1.id IN (SELECT element FROM dbo.split(z.degisenler, ',')
+	 WHERE RTRIM(element) <> '')
+    	For XML Path ('')
+	) [degisenler]
+    ) [a]) as islemler
+FROM (
+    select b.*,ROW_NUMBER() OVER (ORDER BY b.serino) as row FROM (
+	select sa.sayacadi,a.arizakayit,a.fiyatlandirma,a.musterionay,a.kalibrasyon,a.depoteslim,sc.capadi,u.yeradi,a.serino,a.teslimdurum,ak.arizakayit_durum,af.durum,af.ariza_garanti,ak.yenisayac,a.eklenmetarihi,
+	af.toplamtutar,af.toplamtutar2,p.birimi,p2.birimi2,sad.degisenler,sar.problemler,ak.musteriaciklama,s.uretimtarihi
+	from sayacgelen a
+	left join dbo.servistakip st on a.id=st.sayacgelen_id
+	left join dbo.sayacadi sa on a.sayacadi_id=sa.id
+	left join dbo.sayaccap sc on a.sayaccap_id=sc.id
+	left join dbo.uretimyer u on a.uretimyer_id=u.id
+	left join dbo.arizafiyat af on af.sayacgelen_id=a.id
+	left join dbo.arizakayit ak on ak.sayacgelen_id=a.id
+	left join dbo.parabirimi p on af.parabirimi_id=p.id
+	left join dbo.parabirimi2 p2 on af.parabirimi2_id=p2.id
+	left join dbo.sayacariza sar on ak.sayacariza_id=sar.id
+	left join dbo.sayacdegisen sad on ak.sayacdegisen_id=sad.id
+	left join dbo.sayac s on s.id=ak.sayac_id
+	where a.id=$P{sayacgelen_id}
+       )b
+) z where z.row > 0
+order by z.eklenmetarihi,z.sayacadi,z.capadi]]>
+	</queryString>
+	<field name="sayacadi" class="java.lang.String"/>
+	<field name="arizakayit" class="java.lang.Boolean"/>
+	<field name="fiyatlandirma" class="java.lang.Boolean"/>
+	<field name="musterionay" class="java.lang.Boolean"/>
+	<field name="kalibrasyon" class="java.lang.Boolean"/>
+	<field name="depoteslim" class="java.lang.Boolean"/>
+	<field name="capadi" class="java.lang.String"/>
+	<field name="yeradi" class="java.lang.String"/>
+	<field name="serino" class="java.lang.String"/>
+	<field name="teslimdurum" class="java.lang.Integer"/>
+	<field name="arizakayit_durum" class="java.lang.Integer"/>
+	<field name="durum" class="java.lang.Integer"/>
+	<field name="ariza_garanti" class="java.lang.Boolean"/>
+	<field name="yenisayac" class="java.lang.Boolean"/>
+	<field name="eklenmetarihi" class="java.sql.Timestamp"/>
+	<field name="toplamtutar" class="java.math.BigDecimal"/>
+	<field name="toplamtutar2" class="java.math.BigDecimal"/>
+	<field name="birimi" class="java.lang.String"/>
+	<field name="birimi2" class="java.lang.String"/>
+	<field name="degisenler" class="java.lang.String"/>
+	<field name="problemler" class="java.lang.String"/>
+	<field name="musteriaciklama" class="java.lang.String"/>
+	<field name="uretimtarihi" class="java.sql.Timestamp"/>
+	<field name="arizalar" class="java.lang.String"/>
+	<field name="islemler" class="java.lang.String"/>
+	<variable name="var" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{var}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.lang.Integer(1)]]></initialValueExpression>
+	</variable>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="1526" height="20"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="144" y="0" width="183" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{capadi}!="" ? $F{sayacadi}+" "+$F{capadi} : $F{sayacadi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="664" y="0" width="104" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5" rightPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{toplamtutar2}.compareTo(new BigDecimal(0))==0 ? $F{toplamtutar}+" "+$F{birimi} :
+    $F{toplamtutar}.compareTo(new BigDecimal(0))==0 ? $F{toplamtutar2}+" "+$F{birimi2} :
+    $F{toplamtutar}+" "+$F{birimi}+" + "+$F{toplamtutar2}+" "+$F{birimi2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="327" y="0" width="95" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{serino}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="144" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{yeradi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="514" y="0" width="150" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{yenisayac}.booleanValue() ? "Garantide Yeni Sayaç" : ($F{teslimdurum}==1 ?
+     ( $F{ariza_garanti}.booleanValue() ? "Garantide Tamir" :
+                            "Tamir Bakım"+($F{fiyatlandirma} ? ( $F{musterionay} ? ( $F{depoteslim} ? "" : ", Depo Teslim Bekliyor") : ", Müşteri Onay Bekliyor") : ", Fiyatlandırma Bekliyor"))
+     : ($F{teslimdurum}==2 ? "İade"+($F{depoteslim} ? "" : ", Depo Teslim Bekliyor")
+     : ($F{teslimdurum}==3 ? "Hurda"+($F{depoteslim} ? "" : ", Depo Teslim Bekliyor")
+     : ($F{teslimdurum}==4 ? "Depolararası Sevk"
+     : ($F{teslimdurum}==5 ? "Periyodik Bakım"
+     : (!$F{arizakayit} ? "Arıza Kayıt Bekliyor" :
+     ($F{arizakayit_durum}==1 ? "Tamir Bakım Yapıldı"+($F{fiyatlandirma} ? ( $F{musterionay} ? ( $F{depoteslim} ? "" : ", Depo Teslim Bekliyor") : ", Müşteri Onay Bekliyor") : ", Fiyatlandırma Bekliyor") :
+     ($F{arizakayit_durum}==2 ? "Hurdaya Ayrıldı"+($F{depoteslim} ? "" : ", Depo Teslim Bekliyor") :
+     ($F{arizakayit_durum}==3 ? "Yedek Parça Bekliyor" :
+     ($F{arizakayit_durum}==4 ? "Şikayetli Muayene Yapıldı"+($F{fiyatlandirma} ? ( $F{musterionay} ? ( $F{depoteslim} ? "" : ", Depo Teslim Bekliyor") : ", Müşteri Onay Bekliyor") : ", Fiyatlandırma Bekliyor") :
+     ($F{arizakayit_durum}==5 ? "Müdahaleli Sayaç"+($F{fiyatlandirma} ? ( $F{musterionay} ? ( $F{depoteslim} ? "" : ", Depo Teslim Bekliyor") : ", Müşteri Onay Bekliyor") : ", Fiyatlandırma Bekliyor") :
+     ($F{arizakayit_durum}==6 ? "Yeni Sayaç" :
+     ($F{arizakayit_durum}==7 ? "Geri İade"+($F{depoteslim} ? "" : ", Depo Teslim Bekliyor") :
+     ($F{arizakayit_durum}==8 ? "Geri İade"+($F{depoteslim} ? "" : ", Depo Teslim Bekliyor") :
+         "" ))))))))))))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="422" y="0" width="92" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{eklenmetarihi}]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="1324" y="0" width="202" height="20"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+				</frame>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="868" y="0" width="200" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{musteriaciklama}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="768" y="0" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{uretimtarihi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="1068" y="0" width="256" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{arizalar}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="1324" y="0" width="202" height="20" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{islemler}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

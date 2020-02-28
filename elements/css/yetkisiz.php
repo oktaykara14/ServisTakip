@@ -1,0 +1,1 @@
+<link href="assets/admin/pages/css/error.css" rel="stylesheet" type="text/css"/>

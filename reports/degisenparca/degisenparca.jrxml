@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sayacbilgi" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="uretimyer" class="java.lang.String">
+		<defaultValueExpression><![CDATA["0"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ilktarih" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sontarih" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="servis" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\degisenparca\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="degisen" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SET NOCOUNT ON
+DECLARE @ids table(idx int identity(1,1),degisenler nvarchar(300),ucretsiz nvarchar(300),toplamtutar decimal(10, 2),tarih datetime);
+DECLARE @results table(id int identity(1,1),idx int, ids int,tarih datetime,ucretsiz int);
+INSERT INTO @ids (degisenler,ucretsiz,toplamtutar,tarih)
+select a.degisenler,a.ucretsiz,a.toplamtutar,a.kayittarihi from dbo.arizafiyat a
+left join dbo.arizakayit ak on ak.id=a.arizakayit_id
+left join dbo.sayacgelen sg on sg.id=a.sayacgelen_id
+where (($P{servis}=0 AND sg.servis_id!=0) OR ($P{servis}<>0 AND sg.servis_id = $P{servis}))
+AND (ak.arizakayit_durum IN (1,4,5))
+AND (($P{uretimyer}='0' AND sg.uretimyer_id!='0') OR ($P{uretimyer}<>'0' AND sg.uretimyer_id IN($P!{uretimyer})))
+AND (a.kayittarihi between $P{ilktarih} and $P{sontarih});
+
+DECLARE @i int;
+DECLARE @cnt int;
+DECLARE @degisen nvarchar(300);
+DECLARE @ucretsiz nvarchar(300);
+DECLARE @toplamtutar decimal(10,2);
+DECLARE @tarih datetime;
+
+select @i = min(idx) - 1, @cnt = max(idx) from @ids;
+
+WHILE @i < @cnt
+BEGIN
+    select @i = @i + 1;
+    select @degisen=degisenler,@ucretsiz=ucretsiz,@toplamtutar=toplamtutar,@tarih=tarih
+    from @ids where idx = @i;
+    insert into @results(idx,ids,tarih,ucretsiz)
+    SELECT a.*,@tarih,CASE WHEN @toplamtutar>0 THEN b.Element ELSE 1 END
+    FROM [ServisTakip].[dbo].[split](@degisen,',') a
+    join [ServisTakip].[dbo].[split](@ucretsiz,',') b on a.ElementID=b.ElementID;
+END
+
+select a.ids,count(a.ids) adet,d.tanim,st.stokkodu,a.ucretsiz,month(a.tarih) ay, year(a.tarih) yil
+from @results a
+left join dbo.degisenler d on d.id=a.ids
+left join dbo.stokdurum st on st.degisenler_id = d.id
+where ($P{degisen}='0' AND a.ids!='0') OR ($P{degisen}<>'0' AND a.ids IN($P!{degisen}))
+group by a.ids,d.tanim,st.stokkodu,a.ucretsiz,month(a.tarih), year(a.tarih)
+order by ucretsiz,tanim,yil,ay;]]>
+	</queryString>
+	<field name="ids" class="java.lang.Integer"/>
+	<field name="adet" class="java.lang.Integer"/>
+	<field name="tanim" class="java.lang.String"/>
+	<field name="stokkodu" class="java.lang.String"/>
+	<field name="ucretsiz" class="java.lang.Integer"/>
+	<field name="ay" class="java.lang.Integer"/>
+	<field name="yil" class="java.lang.Integer"/>
+	<title>
+		<band height="84" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="84"/>
+				<image>
+					<reportElement x="0" y="0" width="200" height="60"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/manaslogo.png"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="200" y="0" width="355" height="38"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="16"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["İKİ TARİH ARASI DEĞİŞEN PARÇA SAYISI RAPORU"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="306" y="44" width="87" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["TARİH ARALIĞI:"]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd.MM.yyyy">
+					<reportElement x="393" y="44" width="76" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$P{ilktarih}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd.MM.yyyy">
+					<reportElement x="479" y="44" width="76" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$P{sontarih}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="469" y="44" width="10" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["-"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="64" width="99" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["GELİŞ YERİ:"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="306" y="64" width="99" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["SERVİS BİRİMİ:"]]></textFieldExpression>
+				</textField>
+				<subreport>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" mode="Transparent" x="99" y="64" width="207" height="20" isPrintWhenDetailOverflows="true"/>
+					<subreportParameter name="uretimyer">
+						<subreportParameterExpression><![CDATA["("+$P{uretimyer}+")"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "uretimyer.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" mode="Transparent" x="405" y="64" width="150" height="20"/>
+					<subreportParameter name="servis">
+						<subreportParameterExpression><![CDATA[$P{servis}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "servis.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Prevent">
+			<frame>
+				<reportElement x="0" y="10" width="555" height="20"/>
+				<textField>
+					<reportElement x="361" y="0" width="72" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["AY"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="492" y="0" width="63" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["ADET"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="22" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["#"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="22" y="0" width="192" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["DEĞİŞEN PARÇA"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="433" y="0" width="59" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["YIL"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="214" y="0" width="80" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["STOK KODU"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="294" y="0" width="67" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["GARANTİ"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Prevent">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20"/>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="361" y="0" width="72" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ay}==1 ? "Ocak" :   ( $F{ay}==2 ? "Şubat" : (
+$F{ay}==3 ? "Mart" :   ( $F{ay}==4 ? "Nisan" : (
+$F{ay}==5 ? "Mayıs" :  ( $F{ay}==6 ? "Haziran" : (
+$F{ay}==7 ? "Temmuz" : ( $F{ay}==8 ? "Ağustos" : (
+$F{ay}==9 ? "Eylül" :  ( $F{ay}==10 ? "Ekim" : (
+$F{ay}==11 ? "Kasım" : "Aralık"))))))))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="433" y="0" width="59" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{yil}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="22" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="22" y="0" width="192" height="20"/>
+					<box leftPadding="3">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{tanim}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="214" y="0" width="80" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{stokkodu}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="492" y="0" width="63" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{adet}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="294" y="0" width="67" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ucretsiz}==1 ? "İçinde" :  "Dışında"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<noData>
+		<band height="1">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="1"/>
+				<image scaleImage="RealHeight" hAlign="Center">
+					<reportElement x="0" y="0" width="555" height="1"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/hata.jpeg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

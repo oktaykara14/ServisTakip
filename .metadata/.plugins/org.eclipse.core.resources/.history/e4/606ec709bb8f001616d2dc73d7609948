@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-10-11T17:00:16 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="18842e92-e3b5-4ffd-9a5a-88116a14f698">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="ZGJvLmFyaXpha29kICwxNSwxNSxhYTljMDQxNC1kY2UzLTQ3NGYtYTBlYy00MDg0OTNhMTQyM2U7"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM dbo.arizakod
+WHERE 
+	 dbo.arizakod.id = 1]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="kod" class="java.lang.String"/>
+	<field name="tanim" class="java.lang.String"/>
+	<field name="sayactur_id" class="java.lang.Integer"/>
+	<field name="garanti" class="java.lang.Integer"/>
+	<field name="kullanim" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="74" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="560" height="74" uuid="56c7c66a-aec8-4806-86ec-0fedb5bf2f83"/>
+				<textField>
+					<reportElement x="40" y="34" width="430" height="30" uuid="ee4b9616-168a-4018-8474-a3a4d5d80675"/>
+					<textFieldExpression><![CDATA[$F{kod}+' '+$F{tanim}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

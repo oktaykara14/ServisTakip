@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-10-11T17:04:07 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf7468ee-75f3-421b-8a81-813c7e583ba8">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select * from dbo.arizakod where id=1]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="kod" class="java.lang.String"/>
+	<field name="tanim" class="java.lang.String"/>
+	<field name="sayactur_id" class="java.lang.Integer"/>
+	<field name="garanti" class="java.lang.Integer"/>
+	<field name="kullanim" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="226" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="13" width="544" height="200" uuid="96e75d54-124d-4336-b029-3604e5a9c9f4"/>
+				<textField>
+					<reportElement x="20" y="82" width="390" height="30" uuid="d6d2b3d3-46c4-4163-9f25-061d9bb39233"/>
+					<textFieldExpression><![CDATA[$F{kod}+' '+$F{tanim}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

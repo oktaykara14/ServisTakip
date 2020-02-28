@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projesistembilgi" pageWidth="498" pageHeight="300" columnWidth="498" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="2.143588810000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\WebRoot\\ServisTakip\\reports\\projebilgisi\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MUSTERIID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 	ek.*,
+ekk.adi kayitkonusu,
+eu.adi konuadi,
+ebt.adi baskiadi,
+etau.adi tamirurunadi,
+etai.adi tamirislemi,
+ekut.adi kurulumturu
+ from dbo.edestekmusteri e
+left join dbo.edestekkayit ek on ek.edestekmusteri_id=e.id
+left join dbo.edestekkayitkonu ekk on ek.edestekkayitkonu_id=ekk.id
+left join dbo.edestekgorusme ego on ek.konu_id=ego.id and ek.edestekkayitkonu_id=1
+left join dbo.edestekkurulum eku on ek.konu_id=eku.id and ek.edestekkayitkonu_id=2
+left join dbo.edestektamir eta on ek.konu_id=eta.id and ek.edestekkayitkonu_id=3
+left join dbo.edestekbaski eka on ek.konu_id=eka.id and ek.edestekkayitkonu_id=4
+left join dbo.edestekduzenliislem edu on ek.konu_id=edu.id and ek.edestekkayitkonu_id=5
+left join dbo.edestekkonu eu on ego.edestekkonu_id=eu.id
+left join dbo.edestekkurulumtur ekut on eku.edestekkurulumtur_id=ekut.id
+left join dbo.edestektamirurun etau on eta.edestektamirurun_id=etau.id
+left join dbo.edestektamirislem etai on eta.edestektamirislem_id=etai.id
+left join dbo.edestekkartbaski ekat on eka.edestekkartbaski_id=ekat.id
+left join dbo.edestekbaskitur ebt on ekat.edestekbaskitur_id=ebt.id
+where e.id=$P{MUSTERIID}
+order by ek.tarih desc]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="edestekmusteri_id" class="java.lang.Integer"/>
+	<field name="konu_id" class="java.lang.Integer"/>
+	<field name="edestekkayitkonu_id" class="java.lang.Integer"/>
+	<field name="yapilanislem" class="java.lang.String"/>
+	<field name="edestekpersonel_id" class="java.lang.Integer"/>
+	<field name="tarih" class="java.sql.Timestamp"/>
+	<field name="durum" class="java.lang.Integer"/>
+	<field name="created_at" class="java.sql.Timestamp"/>
+	<field name="updated_at" class="java.sql.Timestamp"/>
+	<field name="kayitkonusu" class="java.lang.String"/>
+	<field name="konuadi" class="java.lang.String"/>
+	<field name="baskiadi" class="java.lang.String"/>
+	<field name="tamirurunadi" class="java.lang.String"/>
+	<field name="tamirislemi" class="java.lang.String"/>
+	<field name="kurulumturu" class="java.lang.String"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="498" height="20" isRemoveLineWhenBlank="true"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="114" height="20"/>
+					<box leftPadding="5"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{kayitkonusu}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="114" y="0" width="261" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{yapilanislem}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
+					<reportElement x="375" y="0" width="123" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{tarih}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

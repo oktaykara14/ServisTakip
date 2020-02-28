@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="satisbilgi" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ilktarih" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sontarih" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sube" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select s.*,ss.adi subeadi,a.adisoyadi,p.birimi
+from dbo.subesayacsatis s
+left join dbo.sube ss on ss.subekodu=s.subekodu
+left join dbo.abone a on s.abone_id=a.id
+left join parabirimi p on p.id=s.parabirimi_id
+where s.subekodu=$P{sube} and ss.aktif=1
+and faturatarihi between $P{ilktarih} and $P{sontarih}
+order by s.odemetipi asc,s.faturatarihi asc,s.id asc]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="subekodu" class="java.lang.Integer"/>
+	<field name="abone_id" class="java.lang.Integer"/>
+	<field name="uretimyer_id" class="java.lang.Integer"/>
+	<field name="netsiscari_id" class="java.lang.Integer"/>
+	<field name="faturatarihi" class="java.sql.Timestamp"/>
+	<field name="secilenler" class="java.lang.String"/>
+	<field name="adet" class="java.lang.String"/>
+	<field name="birimfiyat" class="java.lang.String"/>
+	<field name="ucretsiz" class="java.lang.String"/>
+	<field name="sayaclar" class="java.lang.String"/>
+	<field name="tutar" class="java.math.BigDecimal"/>
+	<field name="kdv" class="java.math.BigDecimal"/>
+	<field name="toplamtutar" class="java.math.BigDecimal"/>
+	<field name="parabirimi_id" class="java.lang.Integer"/>
+	<field name="kdvorani" class="java.lang.Integer"/>
+	<field name="yazitutar" class="java.lang.String"/>
+	<field name="durum" class="java.lang.Integer"/>
+	<field name="kullanici_id" class="java.lang.Integer"/>
+	<field name="kayittarihi" class="java.sql.Timestamp"/>
+	<field name="kurtarihi" class="java.sql.Timestamp"/>
+	<field name="efatura" class="java.lang.Integer"/>
+	<field name="db_name" class="java.lang.String"/>
+	<field name="faturano" class="java.lang.String"/>
+	<field name="faturaadres" class="java.lang.String"/>
+	<field name="carikod" class="java.lang.String"/>
+	<field name="ozelkod" class="java.lang.String"/>
+	<field name="projekodu" class="java.lang.String"/>
+	<field name="plasiyerkod" class="java.lang.String"/>
+	<field name="depokodu" class="java.lang.String"/>
+	<field name="aciklama" class="java.lang.String"/>
+	<field name="odemetipi" class="java.lang.Integer"/>
+	<field name="odemesekli" class="java.lang.String"/>
+	<field name="kasakodu" class="java.lang.String"/>
+	<field name="odeme" class="java.math.BigDecimal"/>
+	<field name="odeme2" class="java.math.BigDecimal"/>
+	<field name="taksit" class="java.lang.Integer"/>
+	<field name="netsiskullanici" class="java.lang.String"/>
+	<field name="netsiskullanici_id" class="java.lang.Integer"/>
+	<field name="gdurum" class="java.lang.String"/>
+	<field name="gfaturatarihi" class="java.lang.String"/>
+	<field name="ndurum" class="java.lang.String"/>
+	<field name="subeadi" class="java.lang.String"/>
+	<field name="adisoyadi" class="java.lang.String"/>
+	<field name="birimi" class="java.lang.String"/>
+	<variable name="toplam" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{toplamtutar}]]></variableExpression>
+	</variable>
+	<variable name="var" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{var}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.lang.Integer(1)]]></initialValueExpression>
+	</variable>
+	<variable name="tiptoplam" class="java.math.BigDecimal" resetType="Group" resetGroup="OdemeTipi" calculation="Sum">
+		<variableExpression><![CDATA[$F{toplamtutar}]]></variableExpression>
+	</variable>
+	<group name="OdemeTipi" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{odemetipi}]]></groupExpression>
+		<groupHeader>
+			<band height="80">
+				<frame>
+					<reportElement x="0" y="60" width="555" height="20"/>
+					<textField>
+						<reportElement x="257" y="0" width="97" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["FATURA NO"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="354" y="0" width="115" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["ÖDEME TİPİ"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="0" y="0" width="22" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["#"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="22" y="0" width="175" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["ABONE"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="469" y="0" width="86" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["TUTAR"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="197" y="0" width="60" height="20"/>
+						<box>
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Center">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["TARİH"]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="0" y="0" width="555" height="60"/>
+					<image>
+						<reportElement x="0" y="0" width="165" height="60"/>
+						<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/manaslogo.png"]]></imageExpression>
+					</image>
+					<textField>
+						<reportElement x="180" y="0" width="279" height="24"/>
+						<textElement>
+							<font fontName="Arial" size="16"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["İKİ TARİH ARASI SATIŞ RAPORU"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="339" y="24" width="54" height="24"/>
+						<textElement textAlignment="Right">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["TARİH ARALIĞI:"]]></textFieldExpression>
+					</textField>
+					<textField pattern="dd.MM.yyyy">
+						<reportElement x="393" y="24" width="76" height="24"/>
+						<textElement textAlignment="Center">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.util.Date"><![CDATA[$P{ilktarih}]]></textFieldExpression>
+					</textField>
+					<textField pattern="dd.MM.yyyy">
+						<reportElement x="479" y="24" width="76" height="24"/>
+						<textElement textAlignment="Center">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.util.Date"><![CDATA[$P{sontarih}]]></textFieldExpression>
+					</textField>
+					<textField pattern="dd/MM/yyyy">
+						<reportElement x="469" y="24" width="10" height="24"/>
+						<textElement>
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["-"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="165" y="24" width="45" height="24"/>
+						<textElement textAlignment="Right">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["ŞUBE:"]]></textFieldExpression>
+					</textField>
+					<textField pattern="">
+						<reportElement x="210" y="24" width="129" height="24"/>
+						<box leftPadding="2"/>
+						<textElement>
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{subeadi}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<frame>
+					<reportElement x="0" y="0" width="555" height="20"/>
+					<textField>
+						<reportElement x="354" y="0" width="115" height="20"/>
+						<box rightPadding="3">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["ARA TOPLAM:"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="469" y="0" width="86" height="20"/>
+						<box rightPadding="2">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$V{tiptoplam}+" "+$F{birimi}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="257" y="0" width="97" height="20"/>
+						<box rightPadding="2">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$V{toplam}+" "+$F{birimi}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="142" y="0" width="115" height="20"/>
+						<box rightPadding="3">
+							<pen lineWidth="0.5"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="12"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA["GENEL TOPLAM:"]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="16"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="22" height="16"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{var}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="22" y="0" width="175" height="16"/>
+					<box leftPadding="3">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{adisoyadi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="">
+					<reportElement stretchType="RelativeToTallestObject" x="257" y="0" width="97" height="16"/>
+					<box leftPadding="3">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{faturano}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="354" y="0" width="115" height="16"/>
+					<box leftPadding="3">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{odemesekli}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="469" y="0" width="86" height="16"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{toplamtutar}+" "+$F{birimi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement stretchType="RelativeToTallestObject" x="197" y="0" width="60" height="16"/>
+					<box leftPadding="3">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{faturatarihi}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<noData>
+		<band height="1">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="1"/>
+				<image scaleImage="RealHeight" hAlign="Center">
+					<reportElement x="0" y="0" width="555" height="1"/>
+					<imageExpression class="java.lang.String"><![CDATA["D:/WebRoot/ServisTakip/assets/img/hata.jpeg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

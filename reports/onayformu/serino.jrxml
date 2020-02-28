@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="performans_arizakayit" pageWidth="155" pageHeight="842" columnWidth="155" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL Server"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="3.138428376721004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="secilenler" class="java.lang.String">
+		<defaultValueExpression><![CDATA["(40,488,489,490)"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select case when a.sayi>8 then cast(a.sayi as varchar)+' Adet' else left(a.ariza_serino,Len(a.ariza_serino)-1) end as serinolar
+from (
+     select
+      (
+        select cast(a1.ariza_serino as varchar)+', ' AS [text()]
+        from dbo.arizafiyat a1 where a1.id IN $P!{secilenler}
+        For XML Path ('')
+       ) [ariza_serino],
+       (select  count(a1.ariza_serino) from dbo.arizafiyat a1 where a1.id IN $P!{secilenler}) [sayi]
+) [a]]]>
+	</queryString>
+	<field name="serinolar" class="java.lang.String"/>
+	<detail>
+		<band height="46" splitType="Stretch">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="155" height="46" isPrintWhenDetailOverflows="true"/>
+				<textField isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="155" height="46" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{serinolar}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

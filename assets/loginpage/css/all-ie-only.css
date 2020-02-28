@@ -1,0 +1,10 @@
+.popup {
+  margin: 100px auto;
+  padding: 0px;
+  background: #transparent;
+  border-radius: 5px;
+  /*width: 30%;*/
+  width: 8008px;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
