@@ -74,7 +74,7 @@ return array(
 			'schema'   => 'public',
 		),
 
-	/*'sqlsrv' => array(
+	'sqlsrv' => array(
 			'driver'   => 'sqlsrv',
             'host'     => '127.0.0.1\SQLEXPRESS',
 			'database' => 'ServisTakip',
@@ -112,59 +112,7 @@ return array(
             'password' => 'sapass',
             'characterset' => 'utf8',
             'prefix'   => '',
-        ),*/
-        'sqlsrv' => array(
-			'driver'   => 'sqlsrv',
-            'host'     => '192.168.100.12\NETSISDB',
-            //'host'     => '127.0.0.1\SQLEXPRESS',
-			'database' => 'ServisTakip',
-			//'username' => 'sa',
-			//'password' => 'sapass',
-			'username' => 'SERVISTAKIP',
-			'password' => 'Servis..Takip!!',
-            'characterset' => 'utf8',
-			'prefix'   => '',
-		),
-
-        'sqlsrv2' => array(
-            'driver'   => 'sqlsrv',
-            'host'     => '192.168.100.12\NETSISDB',
-            //'host'     => '127.0.0.1\SQLEXPRESS',
-            'database' => 'MANAS'.date('Y'),
-            //'username' => 'sa',
-            //'password' => 'sapass',
-            'username' => 'SERVISTAKIP',
-            'password' => 'Servis..Takip!!',
-            'characterset' => 'utf8',
-            'prefix'   => '',
         ),
-
-        'sqlsrv3' => array(
-            'driver'   => 'sqlsrv',
-            'host'     => '192.168.100.12\NETSISDB',
-            //host'     => '127.0.0.1\SQLEXPRESS',
-            'database' => 'NETSIS',
-            //'username' => 'sa',
-            //'password' => 'sapass',
-            'username' => 'SERVISTAKIP',
-            'password' => 'Servis..Takip!!',
-            'characterset' => 'utf8',
-            'prefix'   => '',
-        ),
-
-        'sqlsrv4' => array(
-            'driver'   => 'sqlsrv',
-            'host'     => '192.168.100.12\NETSISDB',
-            //'host'     => '127.0.0.1\SQLEXPRESS',
-            'database' => 'EFEDONUSUM',
-            //'username' => 'sa',
-            //'password' => 'sapass',
-            'username' => 'SERVISTAKIP',
-            'password' => 'Servis..Takip!!',
-            'characterset' => 'utf8',
-            'prefix'   => '',
-        ),
-
         'oracle' => array(
             'driver' => 'oracle',
             'host' => '192.168.100.14',
